@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/turingschool-examples/game-time-starter-kit.git"
+    "url": "https://github.com/acareaga/tetris/issues.git"
   },
-  "author": "Steve Kinney",
+  "author": "Jhun de Andres & Aaron Careaga",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/turingschool-examples/game-time-starter-kit/issues"
+    "url": "https://github.com/acareaga/tetris/issues"
   },
-  "homepage": "https://github.com/turingschool-examples/game-time-starter-kit",
+  "homepage": "https://github.com/acareaga/tetris",
   "devDependencies": {
     "babel": "^5.8.3",
     "babel-core": "^5.7.4",
