@@ -1,4 +1,4 @@
-# Game Time Starter Kit
+# TETRIS
 
 To install the dependencies:
 
