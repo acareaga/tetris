@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/acareaga/tetris.png?label=ready&title=Ready)](https://waffle.io/acareaga/tetris)
 # TETRIS
 
 To install the dependencies:
