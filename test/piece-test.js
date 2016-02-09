@@ -1,9 +1,10 @@
 var assert = require('chai').assert;
-var piece = require('../lib/piece');
+var Piece = require('../lib/piece');
 
 describe('game piece', function(){
-  it('appears on the screen', function(){
-    var i = new piece();
-    assert.equal(i, "Hello World");
+  var piece = new Piece({});
+
+  it('should assign an x coordinate', function() {
+    assert.equal(piece.x, 0);
   });
 });
