@@ -1,1 +1,1 @@
-require('./add-two-test');
+require('./piece-test.js');
