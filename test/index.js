@@ -1,1 +1,2 @@
-require('./piece-test.js');
+require('./piece-test');
+require('./board-test');

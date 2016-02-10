@@ -1,18 +1,25 @@
 var assert = require('chai').assert;
-var block = require('../lib/board');
+var board = require('../lib/board');
+var block = require('../lib/block');
 
-describe('game board', function(){
-  var board = new board({});
+describe('Game Board', function(){
 
-  xit('has rows', function() {
-    assert.equal(board.x, 0);
+  it('has rows', function() {
+    let board = new board (0,20)
+    assert.equal(board.rows, 20);
   });
 
-  xit('has columns', function() {
-    assert.equal(board.x, 0);
+  it('has columns', function() {
+    let board = new board(100,0)
+    assert.equal(board.columns, 100);
   });
 
-  xit('has a collection of blocks', function() {
+  it('has a collection of blocks', function() {
+    let board = new board(20, 20)
+    assert.isArray(board.blocks);
+  });
+
+  xit('knows when a row of blocks is full', function() {
     assert.equal(board.x, 0);
   });
 });
