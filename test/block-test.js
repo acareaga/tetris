@@ -72,10 +72,12 @@ describe('Game Block', function() {
     assert.equal(block.canMoveRight(),false);
   });
 
+  it('can detect whether theres a block to the right', function(){
+    let block = this.board.addBlockToBoard(1, 1);
+    this.board.addBlockToBoard(2, 1);
+    assert.equal(block.isThereABlockOnTheRight(), true);
+  });
 
-  // it('status should change when the block hits the bottom of the grid', function(){
-  //   let block = this.board.addBlockToBoard(10,20);
-  //   assert.equal(block.canMoveDown(), false);
-  // });
+
 
 });
