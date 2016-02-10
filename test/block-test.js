@@ -57,6 +57,11 @@ describe('Game Block', function() {
     assert.equal(block.blockIsAtRightSideOfBoard(), true);
   });
 
+  it('cannot move down when it is at the bottom of the board', function(){
+    let block = this.board.addBlockToBoard(10, 20);
+    assert.equal(block.canMoveDown(), false);
+  });
+
   // it('status should change when the block hits the bottom of the grid', function(){
   //   let block = this.board.addBlockToBoard(10,20);
   //   assert.equal(block.canMoveDown(), false);
