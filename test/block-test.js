@@ -78,10 +78,34 @@ describe('Game Block', function() {
     assert.equal(block.isThereABlockOnTheRight(), true);
   });
 
+  it('can detect whether theres a block to the left', function(){
+    let block = this.board.addBlockToBoard(2, 1);
+    this.board.addBlockToBoard(1, 1);
+    assert.equal(block.isThereABlockOnTheLeft(), true);
+  });
+
+  it('can detect whether theres a block in the space below', function(){
+    let block = this.board.addBlockToBoard(2, 1);
+    this.board.addBlockToBoard(2, 2);
+    assert.equal(block.isThereABlockBelow(), true);
+  });
+
   it('cannot move to the right if there is a block next to it', function(){
     let block = this.board.addBlockToBoard(1, 1);
     this.board.addBlockToBoard(2, 1);
     assert.equal(block.canMoveRight(), false);
+  });
+
+  it('cannot move to the left if there is a block next to it', function(){
+    let block = this.board.addBlockToBoard(2, 1);
+    this.board.addBlockToBoard(1, 1);
+    assert.equal(block.canMoveLeft(), false);
+  });
+
+  it('cannot move down if there is a block below it', function(){
+    let block = this.board.addBlockToBoard(2, 1);
+    this.board.addBlockToBoard(2, 2);
+    assert.equal(block.canMoveDown(), false);
   });
 
 
