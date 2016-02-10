@@ -78,6 +78,12 @@ describe('Game Block', function() {
     assert.equal(block.isThereABlockOnTheRight(), true);
   });
 
+  it('cannot move to the right if there is a block next to it', function(){
+    let block = this.board.addBlockToBoard(1, 1);
+    this.board.addBlockToBoard(2, 1);
+    assert.equal(block.canMoveRight(), false);
+  });
+
 
 
 });
