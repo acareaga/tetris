@@ -62,6 +62,17 @@ describe('Game Block', function() {
     assert.equal(block.canMoveDown(), false);
   });
 
+  it('cannot move left when it as the leftside of the board', function(){
+    let block = this.board.addBlockToBoard(0,20);
+    assert.equal(block.canMoveLeft(),false);
+  });
+
+  it('cannot move right when it as the rightside of the board', function(){
+    let block = this.board.addBlockToBoard(10,20);
+    assert.equal(block.canMoveRight(),false);
+  });
+
+
   // it('status should change when the block hits the bottom of the grid', function(){
   //   let block = this.board.addBlockToBoard(10,20);
   //   assert.equal(block.canMoveDown(), false);
