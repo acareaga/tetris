@@ -39,18 +39,48 @@ describe('Game Board', function(){
 
   it('can detect when a row of blocks is full', function() {
     let board = new Board(10, 20)
-    board.addBlockToBoard(1, 10)
-    board.addBlockToBoard(2, 10)
-    board.addBlockToBoard(3, 10)
-    board.addBlockToBoard(4, 10)
-    board.addBlockToBoard(5, 10)
-    board.addBlockToBoard(6, 10)
-    board.addBlockToBoard(7, 10)
-    board.addBlockToBoard(8, 10)
-    board.addBlockToBoard(9, 10)
-    board.addBlockToBoard(10, 10)
+    board.addBlockToBoard(1, 16)
+    board.addBlockToBoard(2, 16)
+    board.addBlockToBoard(3, 16)
+    board.addBlockToBoard(4, 16)
+    board.addBlockToBoard(5, 16)
+    board.addBlockToBoard(6, 16)
+    board.addBlockToBoard(7, 16)
+    board.addBlockToBoard(8, 16)
+    board.addBlockToBoard(9, 16)
+    board.addBlockToBoard(10, 16)
+
 
     assert.equal(board.rowChecker(), true);
+  });
+
+  it('can detect a row is full with a collection of blocks with different rows', function(){
+    let board = new Board(10,20)
+    board.addBlockToBoard(1,1)
+    board.addBlockToBoard(2,5)
+    board.addBlockToBoard(5,2)
+    board.addBlockToBoard(1, 16)
+    board.addBlockToBoard(2, 16)
+    board.addBlockToBoard(3, 16)
+    board.addBlockToBoard(4, 16)
+    board.addBlockToBoard(5, 16)
+    board.addBlockToBoard(6, 16)
+    board.addBlockToBoard(7, 16)
+    board.addBlockToBoard(8, 16)
+    board.addBlockToBoard(9, 16)
+    board.addBlockToBoard(10, 16)
+
+    assert.equal(board.rowChecker(), true)
+  });
+
+  it('returns undefined if a row is not complete', function(){
+    let board = new Board(10,20)
+    board.addBlockToBoard(1,1)
+    board.addBlockToBoard(2,5)
+    board.addBlockToBoard(5,2)
+
+
+    assert.equal(board.rowChecker(), undefined)
   });
 
   xit('rows and columns cannot be negative', function(){
