@@ -50,11 +50,8 @@ describe('Game Board', function(){
     board.addBlockToBoard(9, 10)
     board.addBlockToBoard(10, 10)
 
-    assert.equal(board.isRowFull(), true);
+    assert.equal(board.rowChecker(), true);
   });
-
-
-
 
   xit('rows and columns cannot be negative', function(){
     let board = new Board(-10, -10);
