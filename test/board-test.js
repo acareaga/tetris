@@ -77,10 +77,4 @@ describe('Game Board', function(){
     board.addBlockToBoard(5,2)
     assert.equal(board.rowChecker(), undefined)
   });
-
-  xit('rows and columns cannot be negative', function(){
-    let board = new Board(-10, -10);
-    assert.throw(board.colums, 'function throws a reference error')
-    assert.throw(board.rows, 'function throws a reference error')
-  });
 });
