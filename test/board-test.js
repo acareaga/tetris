@@ -37,13 +37,28 @@ describe('Game Board', function(){
     assert.equal(board.findBlockOnBoard(10, 10), block);
   });
 
+  it('can detect when a row of blocks is full', function() {
+    let board = new Board(10, 20)
+    board.addBlockToBoard(1, 10)
+    board.addBlockToBoard(2, 10)
+    board.addBlockToBoard(3, 10)
+    board.addBlockToBoard(4, 10)
+    board.addBlockToBoard(5, 10)
+    board.addBlockToBoard(6, 10)
+    board.addBlockToBoard(7, 10)
+    board.addBlockToBoard(8, 10)
+    board.addBlockToBoard(9, 10)
+    board.addBlockToBoard(10, 10)
+
+    assert.equal(board.isRowFull(), true);
+  });
+
+
+
+
   xit('rows and columns cannot be negative', function(){
     let board = new Board(-10, -10);
     assert.throw(board.colums, 'function throws a reference error')
     assert.throw(board.rows, 'function throws a reference error')
-  });
-
-  xit('knows when a row of blocks is full', function() {
-    assert.equal(board.x, 0);
   });
 });
