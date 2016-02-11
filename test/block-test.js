@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var Block = require('../lib/block');
-import Board from '../lib/board';
+var Board = require('../lib/board');
 
 describe('Game Block', function() {
 

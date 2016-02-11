@@ -1,5 +1,6 @@
 var assert = require('chai').assert;
 var Board = require('../lib/board');
+var Block = require('../lib/block')
 
 describe('Game Board', function(){
 
@@ -25,15 +26,21 @@ describe('Game Board', function(){
     assert.equal(board.rows, 10000)
   });
 
+  it('has a collection of blocks', function() {
+    let board = new Board(20, 20)
+    assert.isArray(board.blocks);
+  });
+
+  it('can detect the position of a block on the board', function(){
+    let board = new Board(10, 20)
+    let block = board.addBlockToBoard(10, 10)
+    assert.equal(board.findBlockOnBoard(10, 10), block);
+  });
+
   xit('rows and columns cannot be negative', function(){
     let board = new Board(-10, -10);
     assert.throw(board.colums, 'function throws a reference error')
     assert.throw(board.rows, 'function throws a reference error')
-  });
-
-  it('has a collection of blocks', function() {
-    let board = new Board(20, 20)
-    assert.isArray(board.blocks);
   });
 
   xit('knows when a row of blocks is full', function() {
