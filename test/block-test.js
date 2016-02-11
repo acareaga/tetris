@@ -107,7 +107,4 @@ describe('Game Block', function() {
     this.board.addBlockToBoard(2, 2);
     assert.equal(block.canMoveDown(), false);
   });
-
-
-
 });

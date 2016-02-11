@@ -49,8 +49,6 @@ describe('Game Board', function(){
     board.addBlockToBoard(8, 16)
     board.addBlockToBoard(9, 16)
     board.addBlockToBoard(10, 16)
-
-
     assert.equal(board.rowChecker(), true);
   });
 
@@ -72,7 +70,7 @@ describe('Game Board', function(){
     assert.equal(board.rowChecker(), true)
   });
 
-  it('returns undefined if a row is not complete', function(){
+  it('returns undefined if a row is not full', function(){
     let board = new Board(10,20)
     board.addBlockToBoard(1,1)
     board.addBlockToBoard(2,5)
