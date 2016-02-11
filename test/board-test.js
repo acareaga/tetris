@@ -69,7 +69,6 @@ describe('Game Board', function(){
     board.addBlockToBoard(8, 16)
     board.addBlockToBoard(9, 16)
     board.addBlockToBoard(10, 16)
-
     assert.equal(board.rowChecker(), true)
   });
 
@@ -78,8 +77,6 @@ describe('Game Board', function(){
     board.addBlockToBoard(1,1)
     board.addBlockToBoard(2,5)
     board.addBlockToBoard(5,2)
-
-
     assert.equal(board.rowChecker(), undefined)
   });
 
