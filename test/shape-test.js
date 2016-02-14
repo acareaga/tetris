@@ -1,0 +1,32 @@
+var assert = require('chai').assert;
+var Block = require('../lib/block');
+var Board = require('../lib/board');
+var iShape = require('../lib/shapes/iShape.js');
+var Shape = require('../lib/shape');
+
+describe('Game Shapes', function(){
+  beforeEach(function () {
+    this.board = new Board();
+  });
+
+it('You can add a shape to the board', function(){
+  let shape = new iShape
+  this.board.addBlockToBoard(shape)
+  assert.equal(this.board.blocks.length, 1 )
+});
+
+it('can move down',function(){
+  let ishape = new iShape //collection of blocks
+
+  let shape = new Shape(ishape) //gobo
+
+  this.board.addBlockToBoard(shape)// adding shape to board
+
+  shape.moveShapeDown()
+
+  let firstBlockOnPiece = this.board.blocks[0].x.piece.shape[1]
+
+  assert.equal(firstBlockOnPiece.y, 1)
+});
+
+})
