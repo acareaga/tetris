@@ -29,4 +29,26 @@ it('can move down',function(){
   assert.equal(firstBlockOnPiece.y, 1)
 });
 
+it('can move to the right', function(){
+  let ishape = new iShape
+
+  let shape = new Shape(ishape)
+
+  this.board.addBlockToBoard(shape)
+
+  shape.moveShapeRight()
+
+  let firstBlockOnPiece = this.board.blocks[0].x.piece.shape[1]
+
+  assert.equal(firstBlockOnPiece.x, 2)
+});
+
+it('can current cant move left on the board', function(){
+  let ishape = new iShape
+  let shape  = new Shape(ishape)
+  this.board.addBlockToBoard(shape)
+  shape.moveShapeLeft()
+  let firstBlockOnPiece = this.board.blocks[0].x.piece.shape[1]
+  assert.equal(firstBlockOnPiece.y,0 )
+});
 })
