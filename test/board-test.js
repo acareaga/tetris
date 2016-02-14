@@ -104,4 +104,42 @@ describe('Game Board', function(){
     board.rowChecker()
     assert.equal(board.blocks.length, 9 )
   });
+
+  it ('increments the score after a row is cleared', function(){
+    let board = new Board(10,20)
+    board.addBlockToBoard(1, 19)
+    board.addBlockToBoard(2, 19)
+    board.addBlockToBoard(3, 19)
+    board.addBlockToBoard(4, 19)
+    board.addBlockToBoard(5, 19)
+    board.addBlockToBoard(6, 19)
+    board.addBlockToBoard(7, 19)
+    board.addBlockToBoard(8, 19)
+    board.addBlockToBoard(9, 19)
+    board.addBlockToBoard(10, 19)
+    board.rowChecker()
+
+    assert.equal(board.blocks.length, 0)
+    assert.equal(board.score, 1)
+  });
+
+  it ('clears the full row and moves block above down', function(){
+    let board = new Board(10,20)
+    let block = board.addBlockToBoard(5, 15)
+
+    board.addBlockToBoard(1, 19)
+    board.addBlockToBoard(2, 19)
+    board.addBlockToBoard(3, 19)
+    board.addBlockToBoard(4, 19)
+    board.addBlockToBoard(5, 19)
+    board.addBlockToBoard(6, 19)
+    board.addBlockToBoard(7, 19)
+    board.addBlockToBoard(8, 19)
+    board.addBlockToBoard(9, 19)
+    board.addBlockToBoard(10, 19)
+    board.rowChecker()
+
+    assert.equal(board.blocks.length, 1)
+    assert.equal(block.y, 16)
+  });
 });
