@@ -9,13 +9,13 @@ describe('Game Shapes', function(){
     this.board = new Board();
   });
 
-xit('You can add a shape to the board', function(){
+it('You can add a shape to the board', function(){
   let shape = new iShape
   this.board.addBlockToBoard(shape)
   assert.equal(this.board.blocks.length, 1 )
 });
 
-xit('can move down',function(){
+it('can move down',function(){
   let ishape = new iShape //collection of blocks
 
   let shape = new Shape(ishape) //gobo
@@ -29,11 +29,10 @@ xit('can move down',function(){
   assert.equal(firstBlockOnPiece.y, 1)
 });
 
-xit('can move to the right', function(){
+it('can move to the right', function(){
   let ishape = new iShape
 
   let shape = new Shape(ishape)
-
   this.board.addBlockToBoard(shape)
 
   shape.moveShapeRight()
@@ -43,13 +42,13 @@ xit('can move to the right', function(){
   assert.equal(firstBlockOnPiece.x, 2)
 });
 
-xit('can current cant move left on the board', function(){
+it('can current cant move left on the board', function(){
   let ishape = new iShape
   let shape  = new Shape(ishape)
   this.board.addBlockToBoard(shape)
   shape.moveShapeLeft()
   let firstBlockOnPiece = this.board.blocks[0].x.piece.shape[1]
-  assert.equal(firstBlockOnPiece.y,0 )
+  assert.equal(firstBlockOnPiece.y, 0)
 });
 
 it('can change positions', function(){
