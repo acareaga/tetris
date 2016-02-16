@@ -23,11 +23,9 @@ it('You can add a shape to the board', function(){
 
 it('iShape can move down',function(){
   let ishape = new iShape //collection of blocks
-
   let shape = new Shape(ishape) //gobo
 
   this.board.addBlockToBoard(shape)// adding shape to board
-
   shape.moveShapeDown()
 
   let firstBlockOnPiece = this.board.blocks[0].x.piece.shape[1]

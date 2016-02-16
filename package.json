@@ -34,6 +34,8 @@
     "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
-    "wolfy87-eventemitter": "4.3.0"
+    "wolfy87-eventemitter": "4.3.0",
+    "jquery": "^2.2.0",
+    "sinon": "^1.17.3"
   }
 }
