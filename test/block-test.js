@@ -8,10 +8,10 @@ describe('Game Block', function() {
     this.board = new Board();
   });
 
-  it('should default to 0x and 0y', function() {
+  it('should default to 5x and 5gy', function() {
     let block = this.board.addBlockToBoard();
-    assert.equal(block.x, 0);
-    assert.equal(block.y, 0);
+    assert.equal(block.x, 5);
+    assert.equal(block.y, 5);
   });
 
   it('can move down', function(){
