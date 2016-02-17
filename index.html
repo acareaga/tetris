@@ -4,15 +4,35 @@
   <meta charset="utf-8">
   <title>Tetris</title>
   <link href="style.scss" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 </head>
 <body>
-  <canvas id="game"
-          class="game-canvas"
-          width="525px"
-          height="525px">
-  </canvas>
+  <header>
+    <nav class="z-depth-0 navbar">
+      <div class="nav-wrapper white lighten-4">
+        <a href="/" class="brand-logo black-text center" id="navbar-branding">Tetris</a>
+      </div>
+    </nav>
+  </header>
+  <div class="row center-align">
+    <div class="col s12 greeting" >
 
-  <!-- <script src="./lib/index.js"></script> -->
+      <canvas id="game"
+              class="game-canvas"
+              width="525px"
+              height="525px">
+      </canvas>
+
+    </div>
+  </div>
+  <footer class="page-footer white">
+    <div class="footer-copyright">
+      <div class="container">
+        <a class="black-text text-lighten-4 left" href="https://github.com/joshuajhun" target="_blank">Made by Jhun de Andres '</a><a class="black-text text-lighten-4 left" href="https://github.com/acareaga" target="_blank">  & Aaron Careaga</a>
+        <div class= "black-text text-lighten-4 right">© 2016 Tetris Gametime</div>
+      </div>
+    </div>
+  </footer>
   <script src="main.bundle.js"></script>
 </body>
 </html>
