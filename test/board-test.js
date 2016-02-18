@@ -33,113 +33,119 @@ describe('Game Board', function(){
 
   it('can detect the position of a block on the board', function(){
     let board = new Board(10, 20);
-    let block = board.addBlockToBoard(10, 10);
-    assert.equal(board.findBlockOnBoard(10, 10), block);
+    let block = new Block(board,10, 10)
+    board.addBlockToBoard(block)
+    assert.equal(board.findBlockOnBoard(block.x, block.y), block);
   });
 
   it('can detect when a row of blocks is full', function() {
     let board = new Board(10, 20);
-    board.addBlockToBoard(1, 16);
-    board.addBlockToBoard(2, 16);
-    board.addBlockToBoard(3, 16);
-    board.addBlockToBoard(4, 16);
-    board.addBlockToBoard(5, 16);
-    board.addBlockToBoard(6, 16);
-    board.addBlockToBoard(7, 16);
-    board.addBlockToBoard(8, 16);
-    board.addBlockToBoard(9, 16);
-    board.addBlockToBoard(10, 16);
+    board.addBlockToBoard(new Block(board,1,16));
+    board.addBlockToBoard(new Block(board,2,16));
+    board.addBlockToBoard(new Block(board,3,16));
+    board.addBlockToBoard(new Block(board,4,16));
+    board.addBlockToBoard(new Block(board,5,16));
+    board.addBlockToBoard(new Block(board,6,16));
+    board.addBlockToBoard(new Block(board,7,16));
+    board.addBlockToBoard(new Block(board,8,16));
+    board.addBlockToBoard(new Block(board,9,16));
+    board.addBlockToBoard(new Block(board,10,16));
+
     board.rowChecker();
     assert.equal(board.blocks.length, 0);
   });
 
   it('returns undefined if a row is not full', function(){
     let board = new Board(10,20);
-    board.addBlockToBoard(1,1);
-    board.addBlockToBoard(2,5);
-    board.addBlockToBoard(5,2);
+    board.addBlockToBoard(new Block(board,7,16));
+    board.addBlockToBoard(new Block(board,8,16));
+    board.addBlockToBoard(new Block(board,9,16));
+    board.addBlockToBoard(new Block(board,10,16));
     assert.equal(board.rowChecker(), undefined);
   });
 
   it ('it can clear out a full row of blocks', function(){
     let board = new Board(10,20);
-    board.addBlockToBoard(1,1);
-    board.addBlockToBoard(2,5);
-    board.addBlockToBoard(5,2);
-    board.addBlockToBoard(1, 16);
-    board.addBlockToBoard(2, 16);
-    board.addBlockToBoard(3, 16);
-    board.addBlockToBoard(4, 16);
-    board.addBlockToBoard(5, 16);
-    board.addBlockToBoard(6, 16);
-    board.addBlockToBoard(7, 16);
-    board.addBlockToBoard(8, 16);
-    board.addBlockToBoard(9, 16);
-    board.addBlockToBoard(10, 16);
+    board.addBlockToBoard(new Block(board,1,16));
+    board.addBlockToBoard(new Block(board,2,16));
+    board.addBlockToBoard(new Block(board,3,16));
+    board.addBlockToBoard(new Block(board,4,16));
+    board.addBlockToBoard(new Block(board,5,16));
+    board.addBlockToBoard(new Block(board,6,16));
+    board.addBlockToBoard(new Block(board,7,16));
+    board.addBlockToBoard(new Block(board,8,16));
+    board.addBlockToBoard(new Block(board,9,16));
+    board.addBlockToBoard(new Block(board,10,16));
     board.rowChecker();
-    assert.equal(board.blocks.length, 3 );
+    assert.equal(board.pieces.length, 0 );
   });
 
   it ('it can clear out a full row of blocks with a mirade of blocks on the board', function(){
     let board = new Board(10,20);
-    board.addBlockToBoard(1,1);
-    board.addBlockToBoard(2,5);
-    board.addBlockToBoard(5,2);
-    board.addBlockToBoard(1,3);
-    board.addBlockToBoard(2,6);
-    board.addBlockToBoard(5,7);
-    board.addBlockToBoard(1,10);
-    board.addBlockToBoard(2,12);
-    board.addBlockToBoard(5,11);
-    board.addBlockToBoard(1, 19);
-    board.addBlockToBoard(2, 19);
-    board.addBlockToBoard(3, 19);
-    board.addBlockToBoard(4, 19);
-    board.addBlockToBoard(5, 19);
-    board.addBlockToBoard(6, 19);
-    board.addBlockToBoard(7, 19);
-    board.addBlockToBoard(8, 19);
-    board.addBlockToBoard(9, 19);
-    board.addBlockToBoard(10, 19);
+    board.addBlockToBoard(new Block(board,1,1));
+    board.addBlockToBoard(new Block(board,2,5));
+    board.addBlockToBoard(new Block(board,5,2));
+    board.addBlockToBoard(new Block(board,1,3));
+    board.addBlockToBoard(new Block(board,2,6));
+    board.addBlockToBoard(new Block(board,5,7));
+    board.addBlockToBoard(new Block(board,1,10));
+    board.addBlockToBoard(new Block(board,2,12));
+    board.addBlockToBoard(new Block(board,5,11));
+    board.addBlockToBoard(new Block(board,1,16));
+    board.addBlockToBoard(new Block(board,2,16));
+    board.addBlockToBoard(new Block(board,3,16));
+    board.addBlockToBoard(new Block(board,4,16));
+    board.addBlockToBoard(new Block(board,5,16));
+    board.addBlockToBoard(new Block(board,6,16));
+    board.addBlockToBoard(new Block(board,7,16));
+    board.addBlockToBoard(new Block(board,8,16));
+    board.addBlockToBoard(new Block(board,9,16));
+    board.addBlockToBoard(new Block(board,10,16));
     board.rowChecker();
-    assert.equal(board.blocks.length, 9 );
+    assert.equal(board.pieces.length, 9 );
   });
 
   it ('increments the score after a row is cleared', function(){
     let board = new Board(10,20);
-    board.addBlockToBoard(1, 19);
-    board.addBlockToBoard(2, 19);
-    board.addBlockToBoard(3, 19);
-    board.addBlockToBoard(4, 19);
-    board.addBlockToBoard(5, 19);
-    board.addBlockToBoard(6, 19);
-    board.addBlockToBoard(7, 19);
-    board.addBlockToBoard(8, 19);
-    board.addBlockToBoard(9, 19);
-    board.addBlockToBoard(10, 19);
+    board.addBlockToBoard(new Block(board,1,10));
+    board.addBlockToBoard(new Block(board,2,12));
+    board.addBlockToBoard(new Block(board,5,11));
+    board.addBlockToBoard(new Block(board,1,16));
+    board.addBlockToBoard(new Block(board,2,16));
+    board.addBlockToBoard(new Block(board,3,16));
+    board.addBlockToBoard(new Block(board,4,16));
+    board.addBlockToBoard(new Block(board,5,16));
+    board.addBlockToBoard(new Block(board,6,16));
+    board.addBlockToBoard(new Block(board,7,16));
+    board.addBlockToBoard(new Block(board,8,16));
+    board.addBlockToBoard(new Block(board,9,16));
+    board.addBlockToBoard(new Block(board,10,16));
     board.rowChecker();
 
-    assert.equal(board.blocks.length, 0);
+    assert.equal(board.pieces.length, 3);
     assert.equal(board.score, 1);
   });
 
   it ('clears the full row and moves block above down', function(){
     let board = new Board(10,20);
-    let block = board.addBlockToBoard(5, 15);
+    block = new Block (Board, 5, 10)
+    let block = board.addBlockToBoard(block);
 
-    board.addBlockToBoard(1, 19);
-    board.addBlockToBoard(2, 19);
-    board.addBlockToBoard(3, 19);
-    board.addBlockToBoard(4, 19);
-    board.addBlockToBoard(5, 19);
-    board.addBlockToBoard(6, 19);
-    board.addBlockToBoard(7, 19);
-    board.addBlockToBoard(8, 19);
-    board.addBlockToBoard(9, 19);
-    board.addBlockToBoard(10, 19);
+
+    board.addBlockToBoard(new Block(board,1,19));
+    board.addBlockToBoard(new Block(board,2,19));
+    board.addBlockToBoard(new Block(board,3,19));
+    board.addBlockToBoard(new Block(board,4,19));
+    board.addBlockToBoard(new Block(board,5,19));
+    board.addBlockToBoard(new Block(board,6,19));
+    board.addBlockToBoard(new Block(board,7,19));
+    board.addBlockToBoard(new Block(board,8,19));
+    board.addBlockToBoard(new Block(board,9,19));
+    board.addBlockToBoard(new Block(board,10,19));
     board.rowChecker();
 
-    assert.equal(board.blocks.length, 1);
-    assert.equal(block.y, 16);
+
+    assert.equal(board.pieces.length, 1);
+    assert.equal(block.y, 11);
   });
 });
