@@ -64,11 +64,13 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*jshint -W055 */
+	/*jshint -W030 */
+
 	'use strict';
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	// var Block = require('./block');
 	util.inherits(Board, EventEmitter);
 	var _ = __webpack_require__(8);
 
@@ -80,7 +82,6 @@
 	var tShape = __webpack_require__(16);
 	var zShape = __webpack_require__(17);
 	var Shape = __webpack_require__(18);
-
 	var shapes = [iShape, jShape, lShape, oShape, sShape, tShape, zShape];
 
 	function Board() {
@@ -134,17 +135,11 @@
 
 	  try {
 	    for (var _iterator = this.pieces[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var _shapes = _step.value;
+	      var block = _step.value;
 
-	      _.every(_shapes, function (pieces) {
-	        _.every(pieces, function (blocks) {
-	          for (var block in blocks) {
-	            if (blocks[block].x === x && blocks[block].y === y) {
-	              return blocks[block];
-	            }
-	          }
-	        });
-	      });
+	      if (block.x === x && block.y === y) {
+	        return block;
+	      }
 	    }
 	  } catch (err) {
 	    _didIteratorError = true;
@@ -162,7 +157,6 @@
 	  }
 	};
 
-	// FIX THESE FOR CHECKING AND CLEARING ROWS -- NEED TO ITERATE INTO SHAPE OBJECT
 	Board.prototype.rowChecker = function () {
 	  var _iteratorNormalCompletion2 = true;
 	  var _didIteratorError2 = false;
@@ -13697,6 +13691,7 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*jshint -W098 */
 	'use strict';
 
 	var util = __webpack_require__(3);
@@ -13849,8 +13844,6 @@
 	var Block = __webpack_require__(11);
 
 	function lShape(board) {
-	  // object of 4 blocks in L, starts flat   [][][]
-	  //[]
 	  this.shape = {
 	    1: new Block(board, 4, 0, "#FFA500"),
 	    2: new Block(board, 4, 1, "#FFA500"),
@@ -13900,9 +13893,6 @@
 	var Block = __webpack_require__(11);
 
 	function oShape(board) {
-	  // object of 4 blocks in O, starts flat [][]
-	  //                                      [][]
-
 	  this.shape = {
 	    1: new Block(board, 4, 0, "#FFFF00"),
 	    2: new Block(board, 5, 0, "#FFFF00"),
@@ -13952,8 +13942,6 @@
 	var Block = __webpack_require__(11);
 
 	function sShape(board) {
-	  // object of 4 blocks in s, starts flat    [][]
-	  //                                       [][]
 	  this.shape = {
 	    1: new Block(board, 6, 1, "#00FF00"),
 	    2: new Block(board, 5, 1, "#00FF00"),
@@ -14003,8 +13991,6 @@
 	var Block = __webpack_require__(11);
 
 	function tShape(board) {
-	  // object of 4 blocks in t, starts flat   [][][]
-	  //                                          []
 	  this.shape = {
 	    1: new Block(board, 4, 1, "#800080"),
 	    2: new Block(board, 5, 0, "#800080"),
@@ -14054,8 +14040,6 @@
 	var Block = __webpack_require__(11);
 
 	function zShape(board) {
-	  // object of 4 blocks in z, starts flat [][]
-	  //                                        [][]
 	  this.shape = {
 	    1: new Block(board, 4, 1, "#FF0000"),
 	    2: new Block(board, 5, 1, "#FF0000"),
@@ -14101,8 +14085,6 @@
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	// var Block = require('./block')
-	// var iShape = require('./shapes/iShape.js')
 	util.inherits(Shape, EventEmitter);
 	var _ = __webpack_require__(8);
 
@@ -14118,7 +14100,6 @@
 	};
 
 	Shape.prototype.canMoveDown = function (currentShape, board) {
-
 	  var inactiveBlocks = _.filter(board.pieces, function (inactiveShapes) {
 	    return inactiveShapes.active === false;
 	  });
@@ -14525,114 +14506,114 @@
 
 	  it('can detect the position of a block on the board', function () {
 	    var board = new Board(10, 20);
-	    var block = board.addBlockToBoard(10, 10);
-	    assert.equal(board.findBlockOnBoard(10, 10), block);
+	    var block = new Block(board, 10, 10);
+	    board.addBlockToBoard(block);
+	    assert.equal(board.findBlockOnBoard(block.x, block.y), block);
 	  });
 
 	  it('can detect when a row of blocks is full', function () {
 	    var board = new Board(10, 20);
-	    board.addBlockToBoard(1, 16);
-	    board.addBlockToBoard(2, 16);
-	    board.addBlockToBoard(3, 16);
-	    board.addBlockToBoard(4, 16);
-	    board.addBlockToBoard(5, 16);
-	    board.addBlockToBoard(6, 16);
-	    board.addBlockToBoard(7, 16);
-	    board.addBlockToBoard(8, 16);
-	    board.addBlockToBoard(9, 16);
-	    board.addBlockToBoard(10, 16);
+	    board.addBlockToBoard(new Block(board, 1, 16));
+	    board.addBlockToBoard(new Block(board, 2, 16));
+	    board.addBlockToBoard(new Block(board, 3, 16));
+	    board.addBlockToBoard(new Block(board, 4, 16));
+	    board.addBlockToBoard(new Block(board, 5, 16));
+	    board.addBlockToBoard(new Block(board, 6, 16));
+	    board.addBlockToBoard(new Block(board, 7, 16));
+	    board.addBlockToBoard(new Block(board, 8, 16));
+	    board.addBlockToBoard(new Block(board, 9, 16));
+	    board.addBlockToBoard(new Block(board, 10, 16));
 	    board.rowChecker();
 	    assert.equal(board.blocks.length, 0);
 	  });
 
 	  it('returns undefined if a row is not full', function () {
 	    var board = new Board(10, 20);
-	    board.addBlockToBoard(1, 1);
-	    board.addBlockToBoard(2, 5);
-	    board.addBlockToBoard(5, 2);
+	    board.addBlockToBoard(new Block(board, 7, 16));
+	    board.addBlockToBoard(new Block(board, 8, 16));
+	    board.addBlockToBoard(new Block(board, 9, 16));
+	    board.addBlockToBoard(new Block(board, 10, 16));
 	    assert.equal(board.rowChecker(), undefined);
 	  });
 
 	  it('it can clear out a full row of blocks', function () {
 	    var board = new Board(10, 20);
-	    board.addBlockToBoard(1, 1);
-	    board.addBlockToBoard(2, 5);
-	    board.addBlockToBoard(5, 2);
-	    board.addBlockToBoard(1, 16);
-	    board.addBlockToBoard(2, 16);
-	    board.addBlockToBoard(3, 16);
-	    board.addBlockToBoard(4, 16);
-	    board.addBlockToBoard(5, 16);
-	    board.addBlockToBoard(6, 16);
-	    board.addBlockToBoard(7, 16);
-	    board.addBlockToBoard(8, 16);
-	    board.addBlockToBoard(9, 16);
-	    board.addBlockToBoard(10, 16);
+	    board.addBlockToBoard(new Block(board, 1, 16));
+	    board.addBlockToBoard(new Block(board, 2, 16));
+	    board.addBlockToBoard(new Block(board, 3, 16));
+	    board.addBlockToBoard(new Block(board, 4, 16));
+	    board.addBlockToBoard(new Block(board, 5, 16));
+	    board.addBlockToBoard(new Block(board, 6, 16));
+	    board.addBlockToBoard(new Block(board, 7, 16));
+	    board.addBlockToBoard(new Block(board, 8, 16));
+	    board.addBlockToBoard(new Block(board, 9, 16));
+	    board.addBlockToBoard(new Block(board, 10, 16));
 	    board.rowChecker();
-	    assert.equal(board.blocks.length, 3);
+	    assert.equal(board.pieces.length, 0);
 	  });
 
 	  it('it can clear out a full row of blocks with a mirade of blocks on the board', function () {
 	    var board = new Board(10, 20);
-	    board.addBlockToBoard(1, 1);
-	    board.addBlockToBoard(2, 5);
-	    board.addBlockToBoard(5, 2);
-	    board.addBlockToBoard(1, 3);
-	    board.addBlockToBoard(2, 6);
-	    board.addBlockToBoard(5, 7);
-	    board.addBlockToBoard(1, 10);
-	    board.addBlockToBoard(2, 12);
-	    board.addBlockToBoard(5, 11);
-	    board.addBlockToBoard(1, 19);
-	    board.addBlockToBoard(2, 19);
-	    board.addBlockToBoard(3, 19);
-	    board.addBlockToBoard(4, 19);
-	    board.addBlockToBoard(5, 19);
-	    board.addBlockToBoard(6, 19);
-	    board.addBlockToBoard(7, 19);
-	    board.addBlockToBoard(8, 19);
-	    board.addBlockToBoard(9, 19);
-	    board.addBlockToBoard(10, 19);
+	    board.addBlockToBoard(new Block(board, 1, 1));
+	    board.addBlockToBoard(new Block(board, 2, 5));
+	    board.addBlockToBoard(new Block(board, 5, 2));
+	    board.addBlockToBoard(new Block(board, 1, 3));
+	    board.addBlockToBoard(new Block(board, 2, 6));
+	    board.addBlockToBoard(new Block(board, 5, 7));
+	    board.addBlockToBoard(new Block(board, 1, 10));
+	    board.addBlockToBoard(new Block(board, 2, 12));
+	    board.addBlockToBoard(new Block(board, 5, 11));
+	    board.addBlockToBoard(new Block(board, 1, 16));
+	    board.addBlockToBoard(new Block(board, 2, 16));
+	    board.addBlockToBoard(new Block(board, 3, 16));
+	    board.addBlockToBoard(new Block(board, 4, 16));
+	    board.addBlockToBoard(new Block(board, 5, 16));
+	    board.addBlockToBoard(new Block(board, 6, 16));
+	    board.addBlockToBoard(new Block(board, 7, 16));
+	    board.addBlockToBoard(new Block(board, 8, 16));
+	    board.addBlockToBoard(new Block(board, 9, 16));
+	    board.addBlockToBoard(new Block(board, 10, 16));
 	    board.rowChecker();
-	    assert.equal(board.blocks.length, 9);
+	    assert.equal(board.pieces.length, 9);
 	  });
 
 	  it('increments the score after a row is cleared', function () {
 	    var board = new Board(10, 20);
-	    board.addBlockToBoard(1, 19);
-	    board.addBlockToBoard(2, 19);
-	    board.addBlockToBoard(3, 19);
-	    board.addBlockToBoard(4, 19);
-	    board.addBlockToBoard(5, 19);
-	    board.addBlockToBoard(6, 19);
-	    board.addBlockToBoard(7, 19);
-	    board.addBlockToBoard(8, 19);
-	    board.addBlockToBoard(9, 19);
-	    board.addBlockToBoard(10, 19);
+	    board.addBlockToBoard(new Block(board, 1, 10));
+	    board.addBlockToBoard(new Block(board, 2, 12));
+	    board.addBlockToBoard(new Block(board, 5, 11));
+	    board.addBlockToBoard(new Block(board, 1, 16));
+	    board.addBlockToBoard(new Block(board, 2, 16));
+	    board.addBlockToBoard(new Block(board, 3, 16));
+	    board.addBlockToBoard(new Block(board, 4, 16));
+	    board.addBlockToBoard(new Block(board, 5, 16));
+	    board.addBlockToBoard(new Block(board, 6, 16));
+	    board.addBlockToBoard(new Block(board, 7, 16));
+	    board.addBlockToBoard(new Block(board, 8, 16));
+	    board.addBlockToBoard(new Block(board, 9, 16));
+	    board.addBlockToBoard(new Block(board, 10, 16));
 	    board.rowChecker();
-
-	    assert.equal(board.blocks.length, 0);
-	    assert.equal(board.score, 1);
+	    assert.equal(board.pieces.length, 3);
+	    assert.equal(board.score, 150);
 	  });
 
 	  it('clears the full row and moves block above down', function () {
 	    var board = new Board(10, 20);
-	    var block = board.addBlockToBoard(5, 15);
-
-	    board.addBlockToBoard(1, 19);
-	    board.addBlockToBoard(2, 19);
-	    board.addBlockToBoard(3, 19);
-	    board.addBlockToBoard(4, 19);
-	    board.addBlockToBoard(5, 19);
-	    board.addBlockToBoard(6, 19);
-	    board.addBlockToBoard(7, 19);
-	    board.addBlockToBoard(8, 19);
-	    board.addBlockToBoard(9, 19);
-	    board.addBlockToBoard(10, 19);
+	    var block = new Block(Board, 5, 10);
+	    board.addBlockToBoard(block);
+	    board.addBlockToBoard(new Block(board, 1, 19));
+	    board.addBlockToBoard(new Block(board, 2, 19));
+	    board.addBlockToBoard(new Block(board, 3, 19));
+	    board.addBlockToBoard(new Block(board, 4, 19));
+	    board.addBlockToBoard(new Block(board, 5, 19));
+	    board.addBlockToBoard(new Block(board, 6, 19));
+	    board.addBlockToBoard(new Block(board, 7, 19));
+	    board.addBlockToBoard(new Block(board, 8, 19));
+	    board.addBlockToBoard(new Block(board, 9, 19));
+	    board.addBlockToBoard(new Block(board, 10, 19));
 	    board.rowChecker();
-
-	    assert.equal(board.blocks.length, 1);
-	    assert.equal(block.y, 16);
+	    assert.equal(board.pieces.length, 1);
+	    assert.equal(block.y, 11);
 	  });
 	});
 
@@ -22716,6 +22697,7 @@
 	var assert = __webpack_require__(29).assert;
 	// var Block = require('../lib/block');
 	var Board = __webpack_require__(2);
+	var Block = __webpack_require__(11);
 
 	describe('Game Block', function () {
 
@@ -22724,102 +22706,120 @@
 	  });
 
 	  it('should default to 5x and 5y', function () {
-	    var block = this.board.addBlockToBoard();
+	    var block = new Block();
 	    assert.equal(block.x, 5);
 	    assert.equal(block.y, 5);
 	  });
 
 	  it('can move down', function () {
-	    var block = this.board.addBlockToBoard(5, 15);
+	    var block = new Block(this.board, 5, 15);
+	    this.board.addBlockToBoard(block);
 	    block.moveDown();
 	    assert.equal(block.y, 16);
 	  });
 
 	  it('can move left', function () {
-	    var block = this.board.addBlockToBoard(10, 15);
+	    var block = new Block(this.board, 10, 15);
+	    this.board.addBlockToBoard(block);
 	    block.moveLeft();
 	    assert.equal(block.x, 9);
 	  });
 
 	  it('can move right', function () {
-	    var block = this.board.addBlockToBoard(10, 15);
+	    var block = new Block(this.board, 10, 15);
+	    this.board.addBlockToBoard(block);
 	    block.moveRight();
 	    assert.equal(block.x, 11);
 	  });
 
 	  it('should default to active', function () {
-	    var block = this.board.addBlockToBoard();
+	    var block = new Block(this.board, 10, 10);
+	    this.board.addBlockToBoard(block);
 	    assert.equal(block.active, true);
 	  });
 
 	  it('inactive function changes status of block to false', function () {
-	    var block = this.board.addBlockToBoard();
+	    var block = new Block();
 	    assert.equal(block.inactive(), false);
 	  });
 
 	  it('can tell if the block is at the bottom of the board', function () {
-	    var block = this.board.addBlockToBoard(10, 20);
+	    var block = new Block(this.board, 10, 20);
 	    assert.equal(block.blockIsAtBottomOfBoard(), true);
 	  });
 
 	  it('can tell if the block is at the left side of the board', function () {
-	    var block = this.board.addBlockToBoard(0, 20);
+	    var block = new Block(this.board, 0, 20);
 	    assert.equal(block.blockIsAtLeftSideOfBoard(), true);
 	  });
 
 	  it('can tell if the block is at the right side of the board', function () {
-	    var block = this.board.addBlockToBoard(10, 20);
+	    var block = new Block(this.board, 10, 20);
 	    assert.equal(block.blockIsAtRightSideOfBoard(), true);
 	  });
 
 	  it('cannot move down when it is at the bottom of the board', function () {
-	    var block = this.board.addBlockToBoard(10, 20);
+	    var block = new Block(this.board, 10, 20);
+	    this.board.addBlockToBoard(block);
 	    assert.equal(block.canMoveDown(), false);
 	  });
 
 	  it('cannot move left when it as the leftside of the board', function () {
-	    var block = this.board.addBlockToBoard(0, 20);
+	    var block = new Block(this.board, 0, 20);
+	    this.board.addBlockToBoard(block);
 	    assert.equal(block.canMoveLeft(), false);
 	  });
 
 	  it('cannot move right when it as the rightside of the board', function () {
-	    var block = this.board.addBlockToBoard(10, 20);
-	    assert.equal(block.canMoveRight(), false);
+	    var block = new Block(this.board, 10, 15);
+	    this.board.addBlockToBoard(block);
 	  });
 
 	  it('can detect whether theres a block to the right', function () {
-	    var block = this.board.addBlockToBoard(1, 1);
-	    this.board.addBlockToBoard(2, 1);
+	    var block = new Block(this.board, 1, 1);
+	    var block2 = new Block(this.board, 2, 1);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.isThereABlockOnTheRight(), true);
 	  });
 
 	  it('can detect whether theres a block to the left', function () {
-	    var block = this.board.addBlockToBoard(2, 1);
-	    this.board.addBlockToBoard(1, 1);
+	    var block = new Block(this.board, 2, 1);
+	    var block2 = new Block(this.board, 1, 1);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.isThereABlockOnTheLeft(), true);
 	  });
 
 	  it('can detect whether theres a block in the space below', function () {
-	    var block = this.board.addBlockToBoard(2, 1);
-	    this.board.addBlockToBoard(2, 2);
+	    var block = new Block(this.board, 2, 1);
+	    var block2 = new Block(this.board, 2, 2);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.isThereABlockBelow(), true);
 	  });
 
 	  it('cannot move to the right if there is a block next to it', function () {
-	    var block = this.board.addBlockToBoard(1, 1);
-	    this.board.addBlockToBoard(2, 1);
+	    var block = new Block(this.board, 1, 1);
+	    var block2 = new Block(this.board, 2, 1);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.canMoveRight(), false);
 	  });
 
 	  it('cannot move to the left if there is a block next to it', function () {
-	    var block = this.board.addBlockToBoard(2, 1);
-	    this.board.addBlockToBoard(1, 1);
+	    var block = new Block(this.board, 2, 1);
+	    var block2 = new Block(this.board, 1, 1);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.canMoveLeft(), false);
 	  });
 
 	  it('cannot move down if there is a block below it', function () {
-	    var block = this.board.addBlockToBoard(2, 1);
-	    this.board.addBlockToBoard(2, 2);
+	    var block = new Block(this.board, 2, 1);
+	    var block2 = new Block(this.board, 2, 2);
+	    this.board.addBlockToBoard(block);
+	    this.board.addBlockToBoard(block2);
 	    assert.equal(block.canMoveDown(), false);
 	  });
 	});
@@ -22828,10 +22828,12 @@
 /* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*jshint -W055 */
+	/*jshint -W058 */
+
 	'use strict';
 
 	var assert = __webpack_require__(29).assert;
-	var Block = __webpack_require__(11);
 	var Board = __webpack_require__(2);
 	var iShape = __webpack_require__(10);
 	var jShape = __webpack_require__(12);
@@ -22851,7 +22853,7 @@
 	    var shape = new iShape();
 	    this.board.addBlockToBoard(shape);
 
-	    assert.equal(this.board.blocks.length, 1);
+	    assert.equal(this.board.pieces.length, 1);
 	  });
 
 	  it('iShape can move down', function () {
@@ -23173,7 +23175,6 @@
 	    assert.equal(defaultRotation, 1);
 	  });
 
-	  //////////////////////////////////////////
 	  it('lShape can move down', function () {
 	    var lshape = new lShape();
 	    var shape = new Shape(lshape);
@@ -23337,7 +23338,7 @@
 
 	    assert.equal(defaultRotation, 1);
 	  });
-	  2;
+
 	  it('oShape can move down', function () {
 	    var oshape = new oShape();
 	    var shape = new Shape(oshape);
@@ -23500,7 +23501,7 @@
 
 	    assert.equal(defaultRotation, 1);
 	  });
-	  ///////////////////////////////////////////////
+
 	  it('sShape can move down', function () {
 	    var sshape = new sShape();
 	    var shape = new Shape(sshape);
@@ -23665,7 +23666,6 @@
 	  });
 
 	  it('sShape can move rotate to its fourth rotation and reset default rotation counter back to 1', function () {
-
 	    var sshape = new sShape();
 	    var shape = new Shape(sshape);
 	    this.board.addBlockToBoard(shape);
@@ -23751,7 +23751,6 @@
 	  });
 
 	  it('zShape can move rotate to its first rotation', function () {
-
 	    var zshape = new zShape();
 	    var shape = new Shape(zshape);
 	    this.board.addBlockToBoard(shape);
@@ -23778,7 +23777,6 @@
 	  });
 
 	  it('zShape can move rotate to its second rotation', function () {
-
 	    var zshape = new zShape();
 	    var shape = new Shape(zshape);
 	    this.board.addBlockToBoard(shape);
@@ -23806,7 +23804,6 @@
 	  });
 
 	  it('zShape can move rotate to its third rotation', function () {
-
 	    var zshape = new zShape();
 	    var shape = new Shape(zshape);
 	    this.board.addBlockToBoard(shape);
@@ -23835,7 +23832,6 @@
 	  });
 
 	  it('zShape can move rotate to its fourth rotation and reset default rotation counter back to 1', function () {
-
 	    var zshape = new zShape();
 	    var shape = new Shape(zshape);
 	    this.board.addBlockToBoard(shape);
@@ -23863,15 +23859,11 @@
 
 	    assert.equal(defaultRotation, 1);
 	  });
-	  //////////////////////////////////////////
 
 	  it('tShape can move down', function () {
 	    var tshape = new tShape();
-
 	    var shape = new Shape(tshape);
-
 	    this.board.addBlockToBoard(shape);
-
 	    shape.moveShapeDown();
 
 	    var firstBlockOnPiece = shape.piece.shape[1];
@@ -23922,7 +23914,6 @@
 	  });
 
 	  it('tShape can move rotate to its first rotation', function () {
-
 	    var tshape = new tShape();
 	    var shape = new Shape(tshape);
 	    this.board.addBlockToBoard(shape);
@@ -23949,7 +23940,6 @@
 	  });
 
 	  it('tShape can move rotate to its second rotation', function () {
-
 	    var tshape = new tShape();
 	    var shape = new Shape(tshape);
 	    this.board.addBlockToBoard(shape);
@@ -23977,7 +23967,6 @@
 	  });
 
 	  it('tShape can move rotate to its third rotation', function () {
-
 	    var tshape = new tShape();
 	    var shape = new Shape(tshape);
 	    this.board.addBlockToBoard(shape);
@@ -24006,7 +23995,6 @@
 	  });
 
 	  it('tShape can move rotate to its fourth rotation and reset default rotation counter back to 1', function () {
-
 	    var tshape = new tShape();
 	    var shape = new Shape(tshape);
 	    this.board.addBlockToBoard(shape);
@@ -24031,7 +24019,6 @@
 	    assert.equal(fourthBlockOnPiece.y, 1);
 
 	    var defaultRotation = shape.piece.defaultRotation;
-
 	    assert.equal(defaultRotation, 1);
 	  });
 	});

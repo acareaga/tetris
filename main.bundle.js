@@ -45,6 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	/*jshint -W079 */
+	/*jshint -W117 */
 
 	var canvas = document.getElementById('game');
 	var context = canvas.getContext('2d');
@@ -87,20 +89,18 @@
 	        if (currentShape.canMoveDown(currentShape, board)) {
 	          currentShape.moveShapeDown();
 	        }
-
-	        /// one below for top if
 	      } else {
-	          // change the shape status to false
-	          currentShape.active = false;
-	          _.each(currentShape.piece.shape, function (block) {
-	            block.active = false;
-	          });
-	          // drop a new shape after the status is changed to inactive
-	          currentShape = board.generateShape();
-	        }
+	        // change the shape status to false
+	        currentShape.active = false;
+	        _.each(currentShape.piece.shape, function (block) {
+	          block.active = false;
+	        });
+	        // drop a new shape after the status is changed to inactive
+	        currentShape = board.generateShape();
+	      }
 	    }
 	    if (currentShape.piece.shape[4].y === 0 && currentShape.active === false || currentShape.piece.shape[3].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false) {
-	      currentShape = [] && $('.gameOver').text("Game Over");
+	      currentShape = [] && $('.gameOver').text("Bonered Out!");
 	    }
 
 	    setTimeout(function () {
@@ -111,10 +111,7 @@
 
 	function userInput() {
 	  $(document).keydown(function (event) {
-	    if (event.keyCode === 40) {
-	      // down arrow
-	      currentShape.moveShapeDown();
-	    } else if (event.keyCode === 37) {
+	    if (event.keyCode === 37) {
 	      // left arrow
 	      if (currentShape.piece.shape[4].x > 0 && currentShape.piece.shape[3].x > 0 && currentShape.piece.shape[2].x > 0 && currentShape.piece.shape[1].x > 0) {
 	        currentShape.moveShapeLeft();
@@ -9975,11 +9972,13 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*jshint -W055 */
+	/*jshint -W030 */
+
 	'use strict';
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	// var Block = require('./block');
 	util.inherits(Board, EventEmitter);
 	var _ = __webpack_require__(8);
 
@@ -9991,7 +9990,6 @@
 	var tShape = __webpack_require__(16);
 	var zShape = __webpack_require__(17);
 	var Shape = __webpack_require__(18);
-
 	var shapes = [iShape, jShape, lShape, oShape, sShape, tShape, zShape];
 
 	function Board() {
@@ -10045,17 +10043,11 @@
 
 	  try {
 	    for (var _iterator = this.pieces[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var _shapes = _step.value;
+	      var block = _step.value;
 
-	      _.every(_shapes, function (pieces) {
-	        _.every(pieces, function (blocks) {
-	          for (var block in blocks) {
-	            if (blocks[block].x === x && blocks[block].y === y) {
-	              return blocks[block];
-	            }
-	          }
-	        });
-	      });
+	      if (block.x === x && block.y === y) {
+	        return block;
+	      }
 	    }
 	  } catch (err) {
 	    _didIteratorError = true;
@@ -10073,7 +10065,6 @@
 	  }
 	};
 
-	// FIX THESE FOR CHECKING AND CLEARING ROWS -- NEED TO ITERATE INTO SHAPE OBJECT
 	Board.prototype.rowChecker = function () {
 	  var _iteratorNormalCompletion2 = true;
 	  var _didIteratorError2 = false;
@@ -23608,6 +23599,7 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*jshint -W098 */
 	'use strict';
 
 	var util = __webpack_require__(3);
@@ -23760,8 +23752,6 @@
 	var Block = __webpack_require__(11);
 
 	function lShape(board) {
-	  // object of 4 blocks in L, starts flat   [][][]
-	  //[]
 	  this.shape = {
 	    1: new Block(board, 4, 0, "#FFA500"),
 	    2: new Block(board, 4, 1, "#FFA500"),
@@ -23811,9 +23801,6 @@
 	var Block = __webpack_require__(11);
 
 	function oShape(board) {
-	  // object of 4 blocks in O, starts flat [][]
-	  //                                      [][]
-
 	  this.shape = {
 	    1: new Block(board, 4, 0, "#FFFF00"),
 	    2: new Block(board, 5, 0, "#FFFF00"),
@@ -23863,8 +23850,6 @@
 	var Block = __webpack_require__(11);
 
 	function sShape(board) {
-	  // object of 4 blocks in s, starts flat    [][]
-	  //                                       [][]
 	  this.shape = {
 	    1: new Block(board, 6, 1, "#00FF00"),
 	    2: new Block(board, 5, 1, "#00FF00"),
@@ -23914,8 +23899,6 @@
 	var Block = __webpack_require__(11);
 
 	function tShape(board) {
-	  // object of 4 blocks in t, starts flat   [][][]
-	  //                                          []
 	  this.shape = {
 	    1: new Block(board, 4, 1, "#800080"),
 	    2: new Block(board, 5, 0, "#800080"),
@@ -23965,8 +23948,6 @@
 	var Block = __webpack_require__(11);
 
 	function zShape(board) {
-	  // object of 4 blocks in z, starts flat [][]
-	  //                                        [][]
 	  this.shape = {
 	    1: new Block(board, 4, 1, "#FF0000"),
 	    2: new Block(board, 5, 1, "#FF0000"),
@@ -24012,8 +23993,6 @@
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	// var Block = require('./block')
-	// var iShape = require('./shapes/iShape.js')
 	util.inherits(Shape, EventEmitter);
 	var _ = __webpack_require__(8);
 
@@ -24029,7 +24008,6 @@
 	};
 
 	Shape.prototype.canMoveDown = function (currentShape, board) {
-
 	  var inactiveBlocks = _.filter(board.pieces, function (inactiveShapes) {
 	    return inactiveShapes.active === false;
 	  });
