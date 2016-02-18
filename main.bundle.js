@@ -80,21 +80,24 @@
 	      // generate rando shape
 	      currentShape = board.generateShape();
 	    } else {
+
 	      // move shape down if blocks are above bottom row height
 	      if (currentShape.piece.shape[4].y < board.rows && currentShape.piece.shape[3].y < board.rows && currentShape.piece.shape[2].y < board.rows && currentShape.piece.shape[1].y < board.rows) {
 
 	        if (currentShape.canMoveDown(currentShape, board)) {
 	          currentShape.moveShapeDown();
 	        }
+
+	        /// one below for top if
 	      } else {
-	        // change the shape status to false
-	        currentShape.active = false;
-	        _.each(currentShape.piece.shape, function (block) {
-	          block.active = false;
-	        });
-	        // drop a new shape after the status is changed to inactive
-	        currentShape = board.generateShape();
-	      }
+	          // change the shape status to false
+	          currentShape.active = false;
+	          _.each(currentShape.piece.shape, function (block) {
+	            block.active = false;
+	          });
+	          // drop a new shape after the status is changed to inactive
+	          currentShape = board.generateShape();
+	        }
 	    }
 	    if (currentShape.piece.shape[4].y === 0 && currentShape.active === false || currentShape.piece.shape[3].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false) {
 	      currentShape = [];
@@ -113,10 +116,14 @@
 	      currentShape.moveShapeDown();
 	    } else if (event.keyCode === 37) {
 	      // left arrow
-	      currentShape.moveShapeLeft();
+	      if (currentShape.piece.shape[4].x > 0 && currentShape.piece.shape[3].x > 0 && currentShape.piece.shape[2].x > 0 && currentShape.piece.shape[1].x > 0) {
+	        currentShape.moveShapeLeft();
+	      }
 	    } else if (event.keyCode === 39) {
 	      // right arrow
-	      currentShape.moveShapeRight();
+	      if (currentShape.piece.shape[4].x < 20 && currentShape.piece.shape[3].x < 20 && currentShape.piece.shape[2].x < 20 && currentShape.piece.shape[1].x < 20) {
+	        currentShape.moveShapeRight();
+	      }
 	    } else if (event.keyCode === 38) {
 	      // up arrow
 	      currentShape.rotateShape();
