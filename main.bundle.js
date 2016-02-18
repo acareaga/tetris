@@ -49,9 +49,7 @@
 	var canvas = document.getElementById('game');
 	var context = canvas.getContext('2d');
 	var $ = __webpack_require__(1);
-
 	var Board = __webpack_require__(2);
-
 	var board = new Board();
 	var currentShape = board.pieces[0];
 
@@ -62,7 +60,6 @@
 
 	function drawBoard() {
 	  requestAnimationFrame(function gameLoop() {
-	    // add border to canvas and block
 	    context.clearRect(0, 0, canvas.width, canvas.height);
 	    context.lineWidth = 2;
 	    context.strokeStyle = "#000000";
@@ -77,7 +74,6 @@
 	      if (currentShape.piece.shape[4].y < board.rows && currentShape.piece.shape[3].y < board.rows && currentShape.piece.shape[2].y < board.rows && currentShape.piece.shape[1].y < board.rows) {
 
 	        if (currentShape.canMoveDown(currentShape, board)) {
-	          // to check if there is a block underneathe
 	          currentShape.moveShapeDown();
 	        }
 	      } else {
@@ -114,7 +110,7 @@
 	    } else if (event.keyCode === 38) {
 	      // up arrow
 	      currentShape.rotateShape();
-	    };
+	    }
 	  });
 	}
 
@@ -9968,13 +9964,13 @@
 	var _ = __webpack_require__(8);
 
 	var iShape = __webpack_require__(10);
-	var jShape = __webpack_require__(13);
-	var lShape = __webpack_require__(14);
-	var oShape = __webpack_require__(15);
-	var sShape = __webpack_require__(16);
-	var tShape = __webpack_require__(17);
-	var zShape = __webpack_require__(18);
-	var Shape = __webpack_require__(12);
+	var jShape = __webpack_require__(12);
+	var lShape = __webpack_require__(13);
+	var oShape = __webpack_require__(14);
+	var sShape = __webpack_require__(15);
+	var tShape = __webpack_require__(16);
+	var zShape = __webpack_require__(17);
+	var Shape = __webpack_require__(18);
 
 	var shapes = [iShape, jShape, lShape, oShape, sShape, tShape, zShape];
 
@@ -9985,6 +9981,7 @@
 	  this.columns = columns;
 	  this.rows = rows;
 	  this.pieces = [];
+	  this.blocks = [];
 	  this.score = 0;
 	  this.rowBlockCount = { 1: 0, 2: 0, 3: 0,
 	    4: 0, 5: 0, 6: 0,
@@ -23548,7 +23545,6 @@
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(iShape, EventEmitter);
 	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
 
 	function iShape(board) {
 	  this.shape = {
@@ -23584,11 +23580,9 @@
 	    }
 	  };
 	  this.defaultRotation = 1;
-	};
+	}
 
 	module.exports = iShape;
-
-	// object of 4 blocks in I, starts flat [][][][]
 
 /***/ },
 /* 11 */
@@ -23624,10 +23618,16 @@
 	  this.isThereABlockOnTheLeft = this.onBottom.bind(this, -1, 0);
 	  this.isThereABlockBelow = this.onBottom.bind(this, 0, +1);
 
-	  if (this.canMoveDown) this.moveDown = this.move.bind(this, 0, +1);
-	  if (this.canMoveLeft) this.moveLeft = this.move.bind(this, -1, 0);
-	  if (this.canMoveRight) this.moveRight = this.move.bind(this, +1, 0);
-	};
+	  if (this.canMoveDown) {
+	    this.moveDown = this.move.bind(this, 0, +1);
+	  }
+	  if (this.canMoveLeft) {
+	    this.moveLeft = this.move.bind(this, -1, 0);
+	  }
+	  if (this.canMoveRight) {
+	    this.moveRight = this.move.bind(this, +1, 0);
+	  }
+	}
 
 	Block.prototype.isAt = function (offset, comparison) {
 	  return comparison(this.y + offset, this.board.rows);
@@ -23668,7 +23668,6 @@
 	  if (this.inactive) {
 	    return this.active = false;
 	  }
-	  // check conditionals below to confirm falling block moves correctly
 	  if (this.blockisAt) {
 	    return this.inactive;
 	  }
@@ -23687,20 +23686,326 @@
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
+	util.inherits(jShape, EventEmitter);
 	var Block = __webpack_require__(11);
-	var iShape = __webpack_require__(10);
+
+	function jShape(board) {
+	  this.shape = {
+	    1: new Block(board, 6, 0, "#0000FF"),
+	    2: new Block(board, 6, 1, "#0000FF"),
+	    3: new Block(board, 5, 1, "#0000FF"),
+	    4: new Block(board, 4, 1, "#0000FF")
+	  };
+
+	  this.rotation = {
+	    1: {
+	      1: [-2, 0],
+	      2: [-1, -1],
+	      3: [0, 0],
+	      4: [1, 1]
+	    },
+	    2: {
+	      1: [0, 1],
+	      2: [-1, 0],
+	      3: [0, -1],
+	      4: [1, -2]
+	    },
+	    3: {
+	      1: [2, 1],
+	      2: [1, 2],
+	      3: [0, 1],
+	      4: [-1, 0]
+	    },
+	    4: {
+	      1: [0, -2],
+	      2: [1, -1],
+	      3: [0, 0],
+	      4: [-1, 1]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = jShape;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(lShape, EventEmitter);
+	var Block = __webpack_require__(11);
+
+	function lShape(board) {
+	  // object of 4 blocks in L, starts flat   [][][]
+	  //[]
+	  this.shape = {
+	    1: new Block(board, 4, 0, "#FFA500"),
+	    2: new Block(board, 4, 1, "#FFA500"),
+	    3: new Block(board, 5, 1, "#FFA500"),
+	    4: new Block(board, 6, 1, "#FFA500")
+	  };
+	  this.rotation = {
+	    1: {
+	      1: [0, 2],
+	      2: [1, 1],
+	      3: [0, 0],
+	      4: [-1, -1]
+	    },
+	    2: {
+	      1: [2, -1],
+	      2: [1, -2],
+	      3: [0, -1],
+	      4: [-1, 0]
+	    },
+	    3: {
+	      1: [0, -1],
+	      2: [-1, 0],
+	      3: [0, 1],
+	      4: [1, 2]
+	    },
+	    4: {
+	      1: [-2, 0],
+	      2: [-1, 1],
+	      3: [0, 0],
+	      4: [1, -1]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = lShape;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(oShape, EventEmitter);
+	var Block = __webpack_require__(11);
+
+	function oShape(board) {
+	  // object of 4 blocks in O, starts flat [][]
+	  //                                      [][]
+
+	  this.shape = {
+	    1: new Block(board, 4, 0, "#FFFF00"),
+	    2: new Block(board, 5, 0, "#FFFF00"),
+	    3: new Block(board, 4, 1, "#FFFF00"),
+	    4: new Block(board, 5, 1, "#FFFF00")
+	  };
+	  this.rotation = {
+	    1: {
+	      1: [0, 0],
+	      2: [0, 0],
+	      3: [0, 0],
+	      4: [0, 0]
+	    },
+	    2: {
+	      1: [0, 0],
+	      2: [0, 0],
+	      3: [0, 0],
+	      4: [0, 0]
+	    },
+	    3: {
+	      1: [0, 0],
+	      2: [0, 0],
+	      3: [0, 0],
+	      4: [0, 0]
+	    },
+	    4: {
+	      1: [0, 0],
+	      2: [0, 0],
+	      3: [0, 0],
+	      4: [0, 0]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = oShape;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(sShape, EventEmitter);
+	var Block = __webpack_require__(11);
+
+	function sShape(board) {
+	  // object of 4 blocks in s, starts flat    [][]
+	  //                                       [][]
+	  this.shape = {
+	    1: new Block(board, 6, 1, "#00FF00"),
+	    2: new Block(board, 5, 1, "#00FF00"),
+	    3: new Block(board, 5, 0, "#00FF00"),
+	    4: new Block(board, 4, 0, "#00FF00")
+	  };
+	  this.rotation = {
+	    1: {
+	      1: [0, -1],
+	      2: [1, 0],
+	      3: [0, 1],
+	      4: [1, 2]
+	    },
+	    2: {
+	      1: [0, 1],
+	      2: [-1, 0],
+	      3: [0, -1],
+	      4: [-1, -2]
+	    },
+	    3: {
+	      1: [0, -1],
+	      2: [1, 0],
+	      3: [0, 1],
+	      4: [1, 2]
+	    },
+	    4: {
+	      1: [0, 1],
+	      2: [-1, 0],
+	      3: [0, -1],
+	      4: [-1, -2]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = sShape;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(tShape, EventEmitter);
+	var Block = __webpack_require__(11);
+
+	function tShape(board) {
+	  // object of 4 blocks in t, starts flat   [][][]
+	  //                                          []
+	  this.shape = {
+	    1: new Block(board, 4, 1, "#800080"),
+	    2: new Block(board, 5, 0, "#800080"),
+	    3: new Block(board, 5, 1, "#800080"),
+	    4: new Block(board, 6, 1, "#800080")
+	  };
+	  this.rotation = {
+	    1: {
+	      1: [1, 1],
+	      2: [-1, 1],
+	      3: [0, 0],
+	      4: [-1, -1]
+	    },
+	    2: {
+	      1: [1, -2],
+	      2: [1, 0],
+	      3: [0, -1],
+	      4: [-1, 0]
+	    },
+	    3: {
+	      1: [-1, 0],
+	      2: [1, 0],
+	      3: [0, 1],
+	      4: [1, 2]
+	    },
+	    4: {
+	      1: [-1, 1],
+	      2: [-1, -1],
+	      3: [0, 0],
+	      4: [1, -1]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = tShape;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(zShape, EventEmitter);
+	var Block = __webpack_require__(11);
+
+	function zShape(board) {
+	  // object of 4 blocks in z, starts flat [][]
+	  //                                        [][]
+	  this.shape = {
+	    1: new Block(board, 4, 1, "#FF0000"),
+	    2: new Block(board, 5, 1, "#FF0000"),
+	    3: new Block(board, 5, 0, "#FF0000"),
+	    4: new Block(board, 6, 0, "#FF0000")
+	  };
+	  this.rotation = {
+	    1: {
+	      1: [2, 1],
+	      2: [1, 0],
+	      3: [0, 1],
+	      4: [-1, 0]
+	    },
+	    2: {
+	      1: [-2, -1],
+	      2: [-1, 0],
+	      3: [0, -1],
+	      4: [1, 0]
+	    },
+	    3: {
+	      1: [2, 1],
+	      2: [1, 0],
+	      3: [0, 1],
+	      4: [-1, 0]
+	    },
+	    4: {
+	      1: [-2, -1],
+	      2: [-1, 0],
+	      3: [0, -1],
+	      4: [1, 0]
+	    }
+	  };
+	  this.defaultRotation = 1;
+	}
+
+	module.exports = zShape;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	// var Block = require('./block')
+	// var iShape = require('./shapes/iShape.js')
 	util.inherits(Shape, EventEmitter);
 	var _ = __webpack_require__(8);
 
 	function Shape(piece) {
 	  this.piece = piece;
 	  this.active = true;
-	};
+	}
 
 	Shape.prototype.draw = function (context) {
 	  for (var block in this.piece.shape) {
 	    this.piece.shape[block].draw(context);
-	  };
+	  }
 	};
 
 	Shape.prototype.canMoveDown = function (currentShape, board) {
@@ -23711,7 +24016,7 @@
 
 	  function compareBlocks(inactiveX, inactiveY) {
 	    for (var block in currentShape.piece.shape) {
-	      var curX = currentShape.piece.shape[block].x;
+	      // var curX = currentShape.piece.shape[block].x;
 	      var curY = currentShape.piece.shape[block].y;
 	      // if (curX + 1 === inactiveX+1) { currentShape.active = false }
 	      if (curY + 1 === inactiveY) {
@@ -23777,322 +24082,6 @@
 	};
 
 	module.exports = Shape;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(jShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function jShape(board) {
-	  // object of 4 blocks in j, starts flat [][][]
-	  //                                          []
-	  this.shape = {
-	    1: new Block(board, 6, 0, "#0000FF"),
-	    2: new Block(board, 6, 1, "#0000FF"),
-	    3: new Block(board, 5, 1, "#0000FF"),
-	    4: new Block(board, 4, 1, "#0000FF")
-	  };
-
-	  this.rotation = {
-	    1: {
-	      1: [-2, 0],
-	      2: [-1, -1],
-	      3: [0, 0],
-	      4: [1, 1]
-	    },
-	    2: {
-	      1: [0, 1],
-	      2: [-1, 0],
-	      3: [0, -1],
-	      4: [1, -2]
-	    },
-	    3: {
-	      1: [2, 1],
-	      2: [1, 2],
-	      3: [0, 1],
-	      4: [-1, 0]
-	    },
-	    4: {
-	      1: [0, -2],
-	      2: [1, -1],
-	      3: [0, 0],
-	      4: [-1, 1]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	// Defaults to the first set of offset rotations
-
-	module.exports = jShape;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(lShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function lShape(board) {
-	  // object of 4 blocks in L, starts flat   [][][]
-	  //[]
-	  this.shape = {
-	    1: new Block(board, 4, 0, "#FFA500"),
-	    2: new Block(board, 4, 1, "#FFA500"),
-	    3: new Block(board, 5, 1, "#FFA500"),
-	    4: new Block(board, 6, 1, "#FFA500")
-	  };
-	  this.rotation = {
-	    1: {
-	      1: [0, 2],
-	      2: [1, 1],
-	      3: [0, 0],
-	      4: [-1, -1]
-	    },
-	    2: {
-	      1: [2, -1],
-	      2: [1, -2],
-	      3: [0, -1],
-	      4: [-1, 0]
-	    },
-	    3: {
-	      1: [0, -1],
-	      2: [-1, 0],
-	      3: [0, 1],
-	      4: [1, 2]
-	    },
-	    4: {
-	      1: [-2, 0],
-	      2: [-1, 1],
-	      3: [0, 0],
-	      4: [1, -1]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	module.exports = lShape;
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(oShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function oShape(board) {
-	  // object of 4 blocks in O, starts flat [][]
-	  //                                      [][]
-
-	  this.shape = {
-	    1: new Block(board, 4, 0, "#FFFF00"),
-	    2: new Block(board, 5, 0, "#FFFF00"),
-	    3: new Block(board, 4, 1, "#FFFF00"),
-	    4: new Block(board, 5, 1, "#FFFF00")
-	  };
-	  this.rotation = {
-	    1: {
-	      1: [0, 0],
-	      2: [0, 0],
-	      3: [0, 0],
-	      4: [0, 0]
-	    },
-	    2: {
-	      1: [0, 0],
-	      2: [0, 0],
-	      3: [0, 0],
-	      4: [0, 0]
-	    },
-	    3: {
-	      1: [0, 0],
-	      2: [0, 0],
-	      3: [0, 0],
-	      4: [0, 0]
-	    },
-	    4: {
-	      1: [0, 0],
-	      2: [0, 0],
-	      3: [0, 0],
-	      4: [0, 0]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	module.exports = oShape;
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(sShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function sShape(board) {
-	  // object of 4 blocks in s, starts flat    [][]
-	  //                                       [][]
-	  this.shape = {
-	    1: new Block(board, 6, 1, "#00FF00"),
-	    2: new Block(board, 5, 1, "#00FF00"),
-	    3: new Block(board, 5, 0, "#00FF00"),
-	    4: new Block(board, 4, 0, "#00FF00")
-	  };
-	  this.rotation = {
-	    1: {
-	      1: [0, -1],
-	      2: [1, 0],
-	      3: [0, 1],
-	      4: [1, 2]
-	    },
-	    2: {
-	      1: [0, 1],
-	      2: [-1, 0],
-	      3: [0, -1],
-	      4: [-1, -2]
-	    },
-	    3: {
-	      1: [0, -1],
-	      2: [1, 0],
-	      3: [0, 1],
-	      4: [1, 2]
-	    },
-	    4: {
-	      1: [0, 1],
-	      2: [-1, 0],
-	      3: [0, -1],
-	      4: [-1, -2]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	module.exports = sShape;
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(tShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function tShape(board) {
-	  // object of 4 blocks in t, starts flat   [][][]
-	  //                                          []
-	  this.shape = {
-	    1: new Block(board, 4, 1, "#800080"),
-	    2: new Block(board, 5, 0, "#800080"),
-	    3: new Block(board, 5, 1, "#800080"),
-	    4: new Block(board, 6, 1, "#800080")
-	  };
-	  this.rotation = {
-	    1: {
-	      1: [1, 1],
-	      2: [-1, 1],
-	      3: [0, 0],
-	      4: [-1, -1]
-	    },
-	    2: {
-	      1: [1, -2],
-	      2: [1, 0],
-	      3: [0, -1],
-	      4: [-1, 0]
-	    },
-	    3: {
-	      1: [-1, 0],
-	      2: [1, 0],
-	      3: [0, 1],
-	      4: [1, 2]
-	    },
-	    4: {
-	      1: [-1, 1],
-	      2: [-1, -1],
-	      3: [0, 0],
-	      4: [1, -1]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	module.exports = tShape;
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(zShape, EventEmitter);
-	var Block = __webpack_require__(11);
-	var Shape = __webpack_require__(12);
-
-	function zShape(board) {
-	  // object of 4 blocks in z, starts flat [][]
-	  //                                        [][]
-	  this.shape = {
-	    1: new Block(board, 4, 1, "#FF0000"),
-	    2: new Block(board, 5, 1, "#FF0000"),
-	    3: new Block(board, 5, 0, "#FF0000"),
-	    4: new Block(board, 6, 0, "#FF0000")
-	  };
-	  this.rotation = {
-	    1: {
-	      1: [2, 1],
-	      2: [1, 0],
-	      3: [0, 1],
-	      4: [-1, 0]
-	    },
-	    2: {
-	      1: [-2, -1],
-	      2: [-1, 0],
-	      3: [0, -1],
-	      4: [1, 0]
-	    },
-	    3: {
-	      1: [2, 1],
-	      2: [1, 0],
-	      3: [0, 1],
-	      4: [-1, 0]
-	    },
-	    4: {
-	      1: [-2, -1],
-	      2: [-1, 0],
-	      3: [0, -1],
-	      4: [1, 0]
-	    }
-	  };
-	  this.defaultRotation = 1;
-	};
-
-	module.exports = zShape;
 
 /***/ }
 /******/ ]);
