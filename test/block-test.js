@@ -17,35 +17,33 @@ describe('Game Block', function() {
 
   it('can move down', function(){
     let block = new Block(this.board,5,15)
-    let board = this.board.addBlockToBoard(block);
+    this.board.addBlockToBoard(block);
     block.moveDown();
     assert.equal(block.y, 16);
   });
 
   it('can move left',function(){
     let block = new Block(this.board,10,15)
-    let board = this.board.addBlockToBoard(block);
+    this.board.addBlockToBoard(block);
     block.moveLeft();
     assert.equal(block.x, 9);
   });
 
   it('can move right', function(){
     let block = new Block(this.board,10,15)
-    let board = this.board.addBlockToBoard(block);
-
+    this.board.addBlockToBoard(block);
     block.moveRight();
     assert.equal(block.x, 11 );
   });
 
   it('should default to active', function(){
     let block = new Block(this.board,10,10)
-    let board = this.board.addBlockToBoard(block);
+    this.board.addBlockToBoard(block);
     assert.equal(block.active, true);
   });
 
   it('inactive function changes status of block to false', function(){
     let block = new Block()
-
     assert.equal(block.inactive(), false);
   });
 
@@ -124,7 +122,6 @@ describe('Game Block', function() {
   it('cannot move down if there is a block below it', function(){
     let block = new Block(this.board,2, 1)
     let block2 = new Block(this.board,2,2)
-
     this.board.addBlockToBoard(block)
     this.board.addBlockToBoard(block2);
     assert.equal(block.canMoveDown(), false);

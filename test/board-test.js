@@ -50,7 +50,6 @@ describe('Game Board', function(){
     board.addBlockToBoard(new Block(board,8,16));
     board.addBlockToBoard(new Block(board,9,16));
     board.addBlockToBoard(new Block(board,10,16));
-
     board.rowChecker();
     assert.equal(board.blocks.length, 0);
   });
@@ -121,17 +120,14 @@ describe('Game Board', function(){
     board.addBlockToBoard(new Block(board,9,16));
     board.addBlockToBoard(new Block(board,10,16));
     board.rowChecker();
-
     assert.equal(board.pieces.length, 3);
-    assert.equal(board.score, 1);
+    assert.equal(board.score, 150);
   });
 
   it ('clears the full row and moves block above down', function(){
     let board = new Board(10,20);
-    block = new Block (Board, 5, 10)
-    let block = board.addBlockToBoard(block);
-
-
+    let block = new Block (Board, 5, 10)
+    board.addBlockToBoard(block);
     board.addBlockToBoard(new Block(board,1,19));
     board.addBlockToBoard(new Block(board,2,19));
     board.addBlockToBoard(new Block(board,3,19));
@@ -143,8 +139,6 @@ describe('Game Board', function(){
     board.addBlockToBoard(new Block(board,9,19));
     board.addBlockToBoard(new Block(board,10,19));
     board.rowChecker();
-
-
     assert.equal(board.pieces.length, 1);
     assert.equal(block.y, 11);
   });
