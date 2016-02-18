@@ -15,14 +15,14 @@ describe('Game Shapes', function(){
     this.board = new Board();
   });
 
-it('You can add a shape to the board', function(){
+xit('You can add a shape to the board', function(){
   let shape = new iShape
   this.board.addBlockToBoard(shape)
 
   assert.equal(this.board.blocks.length, 1 )
 });
 
-it('iShape can move down',function(){
+xit('iShape can move down',function(){
   let ishape = new iShape
   let shape = new Shape(ishape);
   this.board.addBlockToBoard(shape);
