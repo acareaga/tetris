@@ -47,7 +47,7 @@
 	__webpack_require__(19);
 	mocha.setup("bdd");
 	__webpack_require__(27)
-	__webpack_require__(72);
+	__webpack_require__(71);
 	if(false) {
 		module.hot.accept();
 		module.hot.dispose(function() {
@@ -14125,10 +14125,9 @@
 
 	  function compareBlocks(inactiveX, inactiveY) {
 	    for (var block in currentShape.piece.shape) {
-	      // var curX = currentShape.piece.shape[block].x;
+	      var curX = currentShape.piece.shape[block].x;
 	      var curY = currentShape.piece.shape[block].y;
-	      // if (curX + 1 === inactiveX+1) { currentShape.active = false }
-	      if (curY + 1 === inactiveY) {
+	      if (curY + 1 === inactiveY && curX === inactiveX) {
 	        currentShape.active = false;
 	      }
 	    }
@@ -14138,11 +14137,10 @@
 	    for (var block in shape.piece.shape) {
 	      var inactiveX = shape.piece.shape[block].x;
 	      var inactiveY = shape.piece.shape[block].y;
+	      compareBlocks(inactiveX, inactiveY);
 	    }
-	    compareBlocks(inactiveX, inactiveY);
 	  });
 
-	  // if (compareBlocks === true ) { return false}
 	  if (currentShape.active === true) {
 	    return true;
 	  }
@@ -14485,7 +14483,6 @@
 	__webpack_require__(28);
 	__webpack_require__(69);
 	__webpack_require__(70);
-	__webpack_require__(71);
 
 /***/ },
 /* 28 */
@@ -24041,38 +24038,6 @@
 
 /***/ },
 /* 71 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	// var sinon = require('sinon');
-	// var EventEmitter = require('events').EventEmitter;
-	//
-	// describe('EventEmitter', function(){
-	//   describe('#emit()', function(){
-	//     it('should invoke the callback', function(){
-	//       var spy = sinon.spy();
-	//       var emitter = new EventEmitter;
-	//
-	//       emitter.on('foo', spy);
-	//       emitter.emit('foo');
-	//       spy.called.should.equal.true;
-	//     })
-	//
-	//     it('should pass arguments to the callbacks', function(){
-	//       var spy = sinon.spy();
-	//       var emitter = new EventEmitter;
-	//
-	//       emitter.on('foo', spy);
-	//       emitter.emit('foo', 'bar', 'baz');
-	//       sinon.assert.calledOnce(spy);
-	//       sinon.assert.calledWith(spy, 'bar', 'baz');
-	//     })
-	//   })
-	// })
-
-/***/ },
-/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {process.nextTick(function() {

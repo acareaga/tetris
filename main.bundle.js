@@ -24016,10 +24016,9 @@
 
 	  function compareBlocks(inactiveX, inactiveY) {
 	    for (var block in currentShape.piece.shape) {
-	      // var curX = currentShape.piece.shape[block].x;
+	      var curX = currentShape.piece.shape[block].x;
 	      var curY = currentShape.piece.shape[block].y;
-	      // if (curX + 1 === inactiveX+1) { currentShape.active = false }
-	      if (curY + 1 === inactiveY) {
+	      if (curY + 1 === inactiveY && curX === inactiveX) {
 	        currentShape.active = false;
 	      }
 	    }
@@ -24029,11 +24028,10 @@
 	    for (var block in shape.piece.shape) {
 	      var inactiveX = shape.piece.shape[block].x;
 	      var inactiveY = shape.piece.shape[block].y;
+	      compareBlocks(inactiveX, inactiveY);
 	    }
-	    compareBlocks(inactiveX, inactiveY);
 	  });
 
-	  // if (compareBlocks === true ) { return false}
 	  if (currentShape.active === true) {
 	    return true;
 	  }
