@@ -55,11 +55,21 @@
 
 	$(document).ready(function () {
 	  userInput();
-	  drawBoard();
+	  emptyBoard();
 	});
+
+	$('.score').text(board.score);
+
+	function emptyBoard() {
+	  context.clearRect(0, 0, canvas.width, canvas.height);
+	  context.lineWidth = 2;
+	  context.strokeStyle = "#000000";
+	  context.strokeRect(0, 0, canvas.width, canvas.height);
+	}
 
 	function drawBoard() {
 	  requestAnimationFrame(function gameLoop() {
+
 	    context.clearRect(0, 0, canvas.width, canvas.height);
 	    context.lineWidth = 2;
 	    context.strokeStyle = "#000000";
@@ -89,7 +99,7 @@
 	    if (currentShape.piece.shape[4].y === 0 && currentShape.active === false || currentShape.piece.shape[3].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false) {
 	      currentShape = [];
 	    }
-	    // requestAnimationFrame(gameLoop);
+
 	    setTimeout(function () {
 	      requestAnimationFrame(gameLoop);
 	    }, 200);
@@ -110,6 +120,9 @@
 	    } else if (event.keyCode === 38) {
 	      // up arrow
 	      currentShape.rotateShape();
+	    } else if (event.keyCode === 32) {
+	      // space bar
+	      drawBoard();
 	    }
 	  });
 	}
@@ -10088,7 +10101,7 @@
 	  this.pieces = _.reject(this.pieces, function (block) {
 	    return block.y === rowNumber;
 	  });
-	  this.score += 1;
+	  this.score += 150;
 	  this.moveBlocksAboveDown(rowNumber);
 	};
 

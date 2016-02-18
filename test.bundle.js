@@ -197,7 +197,7 @@
 	  this.pieces = _.reject(this.pieces, function (block) {
 	    return block.y === rowNumber;
 	  });
-	  this.score += 1;
+	  this.score += 150;
 	  this.moveBlocksAboveDown(rowNumber);
 	};
 
