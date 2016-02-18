@@ -1,5 +1,7 @@
 # TETRIS
 
+[Play the Game](https://acareaga.github.io/tetris/)
+
 To install the dependencies:
 
 ```
