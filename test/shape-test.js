@@ -24,211 +24,211 @@ it('You can add a shape to the board', function(){
 
 it('iShape can move down',function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
-  
-  shape.moveShapeDown()
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  shape.moveShapeDown();
 
-  assert.equal(firstBlockOnPiece.y, 1)
-  assert.equal(secondBlockOnPiece.y, 1)
-  assert.equal(thirdBlockOnPiece.y, 1)
-  assert.equal(fourthBlockOnPiece.y, 1)
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
+
+  assert.equal(firstBlockOnPiece.y, 1);
+  assert.equal(secondBlockOnPiece.y, 1);
+  assert.equal(thirdBlockOnPiece.y, 1);
+  assert.equal(fourthBlockOnPiece.y, 1);
 });
 
 it('iShape can move to the right', function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.moveShapeRight()
+  shape.moveShapeRight();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 4)
-  assert.equal(secondBlockOnPiece.x, 5)
-  assert.equal(thirdBlockOnPiece.x, 6)
-  assert.equal(fourthBlockOnPiece.x, 7)
+  assert.equal(firstBlockOnPiece.x, 4);
+  assert.equal(secondBlockOnPiece.x, 5);
+  assert.equal(thirdBlockOnPiece.x, 6);
+  assert.equal(fourthBlockOnPiece.x, 7);
 });
 
 it('iShape can move left on the board', function(){
   let ishape = new iShape
-  let shape  = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape  = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.moveShapeLeft()
+  shape.moveShapeLeft();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 2)
-  assert.equal(secondBlockOnPiece.x, 3)
-  assert.equal(thirdBlockOnPiece.x, 4)
-  assert.equal(fourthBlockOnPiece.x, 5)
+  assert.equal(firstBlockOnPiece.x, 2);
+  assert.equal(secondBlockOnPiece.x, 3);
+  assert.equal(thirdBlockOnPiece.x, 4);
+  assert.equal(fourthBlockOnPiece.x, 5);
 });
 
 it('iShape can rotate to its first position', function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.rotateShape()
+  shape.rotateShape();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 5)
-  assert.equal(firstBlockOnPiece.y, 3)
-  assert.equal(secondBlockOnPiece.x, 5)
-  assert.equal(secondBlockOnPiece.y, 2)
-  assert.equal(thirdBlockOnPiece.x, 5)
-  assert.equal(thirdBlockOnPiece.y, 1)
-  assert.equal(fourthBlockOnPiece.x, 5)
-  assert.equal(fourthBlockOnPiece.y, 0)
+  assert.equal(firstBlockOnPiece.x, 5);
+  assert.equal(firstBlockOnPiece.y, 3);
+  assert.equal(secondBlockOnPiece.x, 5);
+  assert.equal(secondBlockOnPiece.y, 2);
+  assert.equal(thirdBlockOnPiece.x, 5);
+  assert.equal(thirdBlockOnPiece.y, 1);
+  assert.equal(fourthBlockOnPiece.x, 5);
+  assert.equal(fourthBlockOnPiece.y, 0);
 
-  let defaultRotation = shape.piece.defaultRotation
-  assert.equal(defaultRotation, 2)
+  let defaultRotation = shape.piece.defaultRotation;
+  assert.equal(defaultRotation, 2);
 });
 
 it('iShape can rotate to its second position', function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.rotateShape()
-  shape.rotateShape()
+  shape.rotateShape();
+  shape.rotateShape();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 3)
-  assert.equal(firstBlockOnPiece.y, 0)
-  assert.equal(secondBlockOnPiece.x, 4)
-  assert.equal(secondBlockOnPiece.y, 0)
-  assert.equal(thirdBlockOnPiece.x, 5)
-  assert.equal(thirdBlockOnPiece.y, 0 )
-  assert.equal(fourthBlockOnPiece.x, 6)
-  assert.equal(fourthBlockOnPiece.y, 0)
+  assert.equal(firstBlockOnPiece.x, 3);
+  assert.equal(firstBlockOnPiece.y, 0);
+  assert.equal(secondBlockOnPiece.x, 4);
+  assert.equal(secondBlockOnPiece.y, 0);
+  assert.equal(thirdBlockOnPiece.x, 5);
+  assert.equal(thirdBlockOnPiece.y, 0 );
+  assert.equal(fourthBlockOnPiece.x, 6);
+  assert.equal(fourthBlockOnPiece.y, 0);
 
-  let defaultRotation = shape.piece.defaultRotation
-  assert.equal(defaultRotation, 3)
+  let defaultRotation = shape.piece.defaultRotation;
+  assert.equal(defaultRotation, 3);
 });
 
 it('iShape can rotate to its third position', function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.rotateShape()
-  shape.rotateShape()
-  shape.rotateShape()
+  shape.rotateShape();
+  shape.rotateShape();
+  shape.rotateShape();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 5)
-  assert.equal(firstBlockOnPiece.y, 3)
-  assert.equal(secondBlockOnPiece.x, 5)
-  assert.equal(secondBlockOnPiece.y, 2)
-  assert.equal(thirdBlockOnPiece.x, 5)
-  assert.equal(thirdBlockOnPiece.y, 1 )
-  assert.equal(fourthBlockOnPiece.x, 5)
-  assert.equal(fourthBlockOnPiece.y, 0)
+  assert.equal(firstBlockOnPiece.x, 5);
+  assert.equal(firstBlockOnPiece.y, 3);
+  assert.equal(secondBlockOnPiece.x, 5);
+  assert.equal(secondBlockOnPiece.y, 2);
+  assert.equal(thirdBlockOnPiece.x, 5);
+  assert.equal(thirdBlockOnPiece.y, 1 );
+  assert.equal(fourthBlockOnPiece.x, 5);
+  assert.equal(fourthBlockOnPiece.y, 0);
 
-  let defaultRotation = shape.piece.defaultRotation
-  assert.equal(defaultRotation, 4)
+  let defaultRotation = shape.piece.defaultRotation;
+  assert.equal(defaultRotation, 4);
 });
 
 it('iShape can rotate to its fourth position and reset the default rotation counter to 1', function(){
   let ishape = new iShape
-  let shape = new Shape(ishape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(ishape);
+  this.board.addBlockToBoard(shape);
 
-  shape.rotateShape()
-  shape.rotateShape()
-  shape.rotateShape()
-  shape.rotateShape()
+  shape.rotateShape();
+  shape.rotateShape();
+  shape.rotateShape();
+  shape.rotateShape();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 3)
-  assert.equal(firstBlockOnPiece.y, 0)
-  assert.equal(secondBlockOnPiece.x, 4)
-  assert.equal(secondBlockOnPiece.y, 0)
-  assert.equal(thirdBlockOnPiece.x, 5)
-  assert.equal(thirdBlockOnPiece.y, 0 )
-  assert.equal(fourthBlockOnPiece.x, 6)
-  assert.equal(fourthBlockOnPiece.y, 0)
+  assert.equal(firstBlockOnPiece.x, 3);
+  assert.equal(firstBlockOnPiece.y, 0);
+  assert.equal(secondBlockOnPiece.x, 4);
+  assert.equal(secondBlockOnPiece.y, 0);
+  assert.equal(thirdBlockOnPiece.x, 5);
+  assert.equal(thirdBlockOnPiece.y, 0 );
+  assert.equal(fourthBlockOnPiece.x, 6);
+  assert.equal(fourthBlockOnPiece.y, 0);
 
-  let defaultRotation = shape.piece.defaultRotation
-  assert.equal(defaultRotation, 1)
+  let defaultRotation = shape.piece.defaultRotation;
+  assert.equal(defaultRotation, 1);
 });
 
 it('jShape can move down',function(){
   let jshape = new jShape
   let shape = new Shape(jshape)
-  this.board.addBlockToBoard(shape)
+  this.board.addBlockToBoard(shape);
 
-  shape.moveShapeDown()
+  shape.moveShapeDown();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.y, 1)
-  assert.equal(secondBlockOnPiece.y, 2)
-  assert.equal(thirdBlockOnPiece.y, 2)
-  assert.equal(fourthBlockOnPiece.y, 2)
+  assert.equal(firstBlockOnPiece.y, 1);
+  assert.equal(secondBlockOnPiece.y, 2);
+  assert.equal(thirdBlockOnPiece.y, 2);
+  assert.equal(fourthBlockOnPiece.y, 2);
 });
 
 it('jShape can move to the right', function(){
   let jshape = new jShape
-  let shape = new Shape(jshape)
-  this.board.addBlockToBoard(shape)
+  let shape = new Shape(jshape);
+  this.board.addBlockToBoard(shape);
 
-  shape.moveShapeRight()
+  shape.moveShapeRight();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
-  assert.equal(firstBlockOnPiece.x, 7)
-  assert.equal(secondBlockOnPiece.x, 7)
-  assert.equal(thirdBlockOnPiece.x, 6)
-  assert.equal(fourthBlockOnPiece.x, 5)
+  assert.equal(firstBlockOnPiece.x, 7);
+  assert.equal(secondBlockOnPiece.x, 7);
+  assert.equal(thirdBlockOnPiece.x, 6);
+  assert.equal(fourthBlockOnPiece.x, 5);
 });
 
 it('jShape can move left on the board', function(){
   let jshape = new jShape
-  let shape  = new Shape(jshape)
-  this.board.addBlockToBoard(shape)
+  let shape  = new Shape(jshape);
+  this.board.addBlockToBoard(shape);
 
-  shape.moveShapeLeft()
+  shape.moveShapeLeft();
 
-  let firstBlockOnPiece  = shape.piece.shape[1]
-  let secondBlockOnPiece = shape.piece.shape[2]
-  let thirdBlockOnPiece  = shape.piece.shape[3]
-  let fourthBlockOnPiece = shape.piece.shape[4]
+  let firstBlockOnPiece  = shape.piece.shape[1];
+  let secondBlockOnPiece = shape.piece.shape[2];
+  let thirdBlockOnPiece  = shape.piece.shape[3];
+  let fourthBlockOnPiece = shape.piece.shape[4];
 
   assert.equal(firstBlockOnPiece.x, 5)
   assert.equal(secondBlockOnPiece.x, 5)

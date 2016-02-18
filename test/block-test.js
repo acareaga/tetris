@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Block = require('../lib/block');
+// var Block = require('../lib/block');
 var Board = require('../lib/board');
 
 describe('Game Block', function() {
@@ -16,30 +16,30 @@ describe('Game Block', function() {
 
   it('can move down', function(){
     let block = this.board.addBlockToBoard(5, 15);
-    block.moveDown()
+    block.moveDown();
     assert.equal(block.y, 16);
   });
 
   it('can move left',function(){
-    let block = this.board.addBlockToBoard(10, 15)
-    block.moveLeft()
-    assert.equal(block.x, 9)
+    let block = this.board.addBlockToBoard(10, 15);
+    block.moveLeft();
+    assert.equal(block.x, 9);
   });
 
   it('can move right', function(){
-    let block = this.board.addBlockToBoard(10, 15)
-    block.moveRight()
-    assert.equal(block.x, 11 )
+    let block = this.board.addBlockToBoard(10, 15);
+    block.moveRight();
+    assert.equal(block.x, 11 );
   });
 
   it('should default to active', function(){
     let block = this.board.addBlockToBoard();
-    assert.equal(block.active, true)
+    assert.equal(block.active, true);
   });
 
   it('inactive function changes status of block to false', function(){
     let block = this.board.addBlockToBoard();
-    assert.equal(block.inactive(), false)
+    assert.equal(block.inactive(), false);
   });
 
   it('can tell if the block is at the bottom of the board', function(){
