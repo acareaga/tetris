@@ -100,7 +100,7 @@
 	        }
 	    }
 	    if (currentShape.piece.shape[4].y === 0 && currentShape.active === false || currentShape.piece.shape[3].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false || currentShape.piece.shape[1].y === 0 && currentShape.active === false) {
-	      currentShape = [];
+	      currentShape = [] && $('.gameOver').text("Game Over");
 	    }
 
 	    setTimeout(function () {
