@@ -68,11 +68,11 @@
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	var Block = __webpack_require__(8);
+	// var Block = require('./block');
 	util.inherits(Board, EventEmitter);
-	var _ = __webpack_require__(9);
+	var _ = __webpack_require__(8);
 
-	var iShape = __webpack_require__(11);
+	var iShape = __webpack_require__(10);
 	var jShape = __webpack_require__(13);
 	var lShape = __webpack_require__(14);
 	var oShape = __webpack_require__(15);
@@ -99,7 +99,7 @@
 	    16: 0, 17: 0, 18: 0,
 	    19: 0, 20: 0
 	  };
-	};
+	}
 
 	Board.prototype.draw = function (context) {
 	  _.each(this.pieces, function (piece) {
@@ -115,8 +115,8 @@
 	};
 
 	Board.prototype.generate = function (context) {
-	  context.fillRect(this.rows, this.columns, this.blocks);
-	  _.each(this.blocks, function (block) {
+	  context.fillRect(this.rows, this.columns, this.pieces);
+	  _.each(this.pieces, function (block) {
 	    context.fillRect(block.x, block.y, 5, 5);
 	  });
 	};
@@ -132,12 +132,18 @@
 	  var _iteratorError = undefined;
 
 	  try {
-	    for (var _iterator = this.blocks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var block = _step.value;
+	    for (var _iterator = this.pieces[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var _shapes = _step.value;
 
-	      if (block.x === x && block.y === y) {
-	        return block;
-	      }
+	      _.every(_shapes, function (pieces) {
+	        _.every(pieces, function (blocks) {
+	          for (var block in blocks) {
+	            if (blocks[block].x === x && blocks[block].y === y) {
+	              return blocks[block];
+	            }
+	          }
+	        });
+	      });
 	    }
 	  } catch (err) {
 	    _didIteratorError = true;
@@ -153,17 +159,16 @@
 	      }
 	    }
 	  }
-
-	  ;
 	};
 
+	// FIX THESE FOR CHECKING AND CLEARING ROWS -- NEED TO ITERATE INTO SHAPE OBJECT
 	Board.prototype.rowChecker = function () {
 	  var _iteratorNormalCompletion2 = true;
 	  var _didIteratorError2 = false;
 	  var _iteratorError2 = undefined;
 
 	  try {
-	    for (var _iterator2 = this.blocks[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	    for (var _iterator2 = this.pieces[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	      var block = _step2.value;
 
 	      this.rowBlockCount[block.y] += 1;
@@ -185,12 +190,10 @@
 	      }
 	    }
 	  }
-
-	  ;
 	};
 
 	Board.prototype.clearRow = function (rowNumber) {
-	  this.blocks = _.reject(this.blocks, function (block) {
+	  this.pieces = _.reject(this.pieces, function (block) {
 	    return block.y === rowNumber;
 	  });
 	  this.score += 1;
@@ -203,7 +206,7 @@
 	  var _iteratorError3 = undefined;
 
 	  try {
-	    for (var _iterator3 = this.blocks[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	    for (var _iterator3 = this.pieces[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	      var block = _step3.value;
 
 	      if (block.y < rowNumber) {
@@ -224,8 +227,10 @@
 	      }
 	    }
 	  }
+	};
 
-	  ;
+	Board.prototype.currentShapeNotOnBottom = function (currentShape) {
+	  currentShape.piece.shape[4].y < this.rows && currentShape.piece.shape[3].y < this.rows && currentShape.piece.shape[2].y < this.rows && currentShape.piece.shape[1].y < this.rows;
 	};
 
 	module.exports = Board;
@@ -1266,95 +1271,6 @@
 
 /***/ },
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var util = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(7);
-	util.inherits(Block, EventEmitter);
-
-	function Block(board) {
-	  var x = arguments.length <= 1 || arguments[1] === undefined ? 5 : arguments[1];
-	  var y = arguments.length <= 2 || arguments[2] === undefined ? 5 : arguments[2];
-	  var color = arguments.length <= 3 || arguments[3] === undefined ? "#000000" : arguments[3];
-
-	  this.board = board;
-	  this.active = true;
-	  this.x = x;
-	  this.y = y;
-	  this.height = 1;
-	  this.width = 1;
-	  this.color = color;
-
-	  this.canMoveRight = this.canMove.bind(this, this.blockIsAtRightSideOfBoard, this.isThereABlockOnTheRight);
-	  this.canMoveLeft = this.canMove.bind(this, this.blockIsAtLeftSideOfBoard, this.isThereABlockOnTheLeft);
-	  this.canMoveDown = this.canMove.bind(this, this.blockIsAtBottomOfBoard, this.isThereABlockBelow);
-
-	  this.blockIsAtBottomOfBoard = this.isAt.bind(this, +1, compareGreater);
-	  this.blockIsAtLeftSideOfBoard = this.isAt.bind(this, -1, compareLess);
-	  this.blockIsAtRightSideOfBoard = this.isAt.bind(this, +1, compareGreater);
-	  this.isThereABlockOnTheRight = this.onBottom.bind(this, +1, 0);
-	  this.isThereABlockOnTheLeft = this.onBottom.bind(this, -1, 0);
-	  this.isThereABlockBelow = this.onBottom.bind(this, 0, +1);
-
-	  if (this.canMoveDown) this.moveDown = this.move.bind(this, 0, +1);
-	  if (this.canMoveLeft) this.moveLeft = this.move.bind(this, -1, 0);
-	  if (this.canMoveRight) this.moveRight = this.move.bind(this, +1, 0);
-	};
-
-	Block.prototype.isAt = function (offset, comparison) {
-	  return comparison(this.y + offset, this.board.rows);
-	};
-
-	var compareLess = function compareLess(a, b) {
-	  return a < b;
-	};
-
-	var compareGreater = function compareGreater(a, b) {
-	  return a > b;
-	};
-
-	Block.prototype.draw = function (context) {
-	  context.lineWidth = '0.5';
-	  // context.fillStyle = this.color;
-	  context.strokeRect(this.x * 25, this.y * 25, 25, 25);
-	  context.fillRect(this.x * 25, this.y * 25, 25, 25);
-	};
-
-	Block.prototype.move = function (xOffset, yOffset) {
-	  this.x += xOffset;
-	  this.y += yOffset;
-	  return this;
-	};
-
-	Block.prototype.onBottom = function (xOffset, yOffset) {
-	  if (this.board.findBlockOnBoard(this.x + xOffset, this.y + yOffset)) {
-	    return true;
-	  }
-	};
-
-	Block.prototype.inactive = function () {
-	  return this.active = false;
-	};
-
-	Block.prototype.canMove = function (blockIsAt, isThereA) {
-	  if (this.inactive) {
-	    return this.active = false;
-	  }
-	  // check conditionals below to confirm falling block moves correctly
-	  if (this.blockisAt) {
-	    return this.inactive;
-	  }
-	  if (this.isThereA) {
-	    return false;
-	  }
-	};
-
-	module.exports = Block;
-
-/***/ },
-/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -13709,10 +13625,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module), (function() { return this; }())))
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -13728,7 +13644,7 @@
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13736,7 +13652,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(iShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function iShape(board) {
@@ -13780,6 +13696,95 @@
 	// object of 4 blocks in I, starts flat [][][][]
 
 /***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var util = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(7);
+	util.inherits(Block, EventEmitter);
+
+	function Block(board) {
+	  var x = arguments.length <= 1 || arguments[1] === undefined ? 5 : arguments[1];
+	  var y = arguments.length <= 2 || arguments[2] === undefined ? 5 : arguments[2];
+	  var color = arguments.length <= 3 || arguments[3] === undefined ? "#000000" : arguments[3];
+
+	  this.board = board;
+	  this.active = true;
+	  this.x = x;
+	  this.y = y;
+	  this.height = 1;
+	  this.width = 1;
+	  this.color = color;
+
+	  this.canMoveRight = this.canMove.bind(this, this.blockIsAtRightSideOfBoard, this.isThereABlockOnTheRight);
+	  this.canMoveLeft = this.canMove.bind(this, this.blockIsAtLeftSideOfBoard, this.isThereABlockOnTheLeft);
+	  this.canMoveDown = this.canMove.bind(this, this.blockIsAtBottomOfBoard, this.isThereABlockBelow);
+
+	  this.blockIsAtBottomOfBoard = this.isAt.bind(this, +1, compareGreater);
+	  this.blockIsAtLeftSideOfBoard = this.isAt.bind(this, -1, compareLess);
+	  this.blockIsAtRightSideOfBoard = this.isAt.bind(this, +1, compareGreater);
+	  this.isThereABlockOnTheRight = this.onBottom.bind(this, +1, 0);
+	  this.isThereABlockOnTheLeft = this.onBottom.bind(this, -1, 0);
+	  this.isThereABlockBelow = this.onBottom.bind(this, 0, +1);
+
+	  if (this.canMoveDown) this.moveDown = this.move.bind(this, 0, +1);
+	  if (this.canMoveLeft) this.moveLeft = this.move.bind(this, -1, 0);
+	  if (this.canMoveRight) this.moveRight = this.move.bind(this, +1, 0);
+	};
+
+	Block.prototype.isAt = function (offset, comparison) {
+	  return comparison(this.y + offset, this.board.rows);
+	};
+
+	var compareLess = function compareLess(a, b) {
+	  return a < b;
+	};
+
+	var compareGreater = function compareGreater(a, b) {
+	  return a > b;
+	};
+
+	Block.prototype.draw = function (context) {
+	  context.lineWidth = '0.5';
+	  context.fillStyle = this.color;
+	  context.strokeRect(this.x * 25, this.y * 25, 25, 25);
+	  context.fillRect(this.x * 25, this.y * 25, 25, 25);
+	};
+
+	Block.prototype.move = function (xOffset, yOffset) {
+	  this.x += xOffset;
+	  this.y += yOffset;
+	  return this;
+	};
+
+	Block.prototype.onBottom = function (xOffset, yOffset) {
+	  if (this.board.findBlockOnBoard(this.x + xOffset, this.y + yOffset)) {
+	    return true;
+	  }
+	};
+
+	Block.prototype.inactive = function () {
+	  return this.active = false;
+	};
+
+	Block.prototype.canMove = function (blockIsAt, isThereA) {
+	  if (this.inactive) {
+	    return this.active = false;
+	  }
+	  // check conditionals below to confirm falling block moves correctly
+	  if (this.blockisAt) {
+	    return this.inactive;
+	  }
+	  if (this.isThereA) {
+	    return false;
+	  }
+	};
+
+	module.exports = Block;
+
+/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13787,30 +13792,15 @@
 
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
-	var Block = __webpack_require__(8);
-	var iShape = __webpack_require__(11);
+	var Block = __webpack_require__(11);
+	var iShape = __webpack_require__(10);
 	util.inherits(Shape, EventEmitter);
-	var _ = __webpack_require__(9);
+	var _ = __webpack_require__(8);
 
 	function Shape(piece) {
 	  this.piece = piece;
 	  this.active = true;
 	};
-
-	Shape.prototype.shapeCanMoveDown = function () {
-	  _.every(this.blocks, function (block) {
-	    return block.canMoveDown();
-	  });
-	};
-
-	// Shape.prototype.shapeAtBottom = function(){
-	//   for (let block in this.piece.shape) {
-	//     if (this.piece.shape[block].y  !== 20) {
-	//       this.piece.shape[block].moveDown()
-	//     }
-	//     this.piece.active = false
-	//   }
-	// }
 
 	Shape.prototype.draw = function (context) {
 	  for (var block in this.piece.shape) {
@@ -13818,11 +13808,48 @@
 	  };
 	};
 
+	Shape.prototype.canMoveDown = function (currentShape, board) {
+
+	  var inactiveBlocks = _.filter(board.pieces, function (inactiveShapes) {
+	    return inactiveShapes.active === false;
+	  });
+
+	  function compareBlocks(inactiveX, inactiveY) {
+	    for (var block in currentShape.piece.shape) {
+	      var curX = currentShape.piece.shape[block].x;
+	      var curY = currentShape.piece.shape[block].y;
+	      // if (curX + 1 === inactiveX+1) { currentShape.active = false }
+	      if (curY + 1 === inactiveY) {
+	        currentShape.active = false;
+	      }
+	    }
+	  }
+
+	  _.each(inactiveBlocks, function (shape) {
+	    for (var block in shape.piece.shape) {
+	      var inactiveX = shape.piece.shape[block].x;
+	      var inactiveY = shape.piece.shape[block].y;
+	    }
+	    compareBlocks(inactiveX, inactiveY);
+	  });
+
+	  // if (compareBlocks === true ) { return false}
+	  if (currentShape.active === true) {
+	    return true;
+	  }
+	};
+
 	Shape.prototype.moveShapeDown = function () {
 	  _.every(this.piece, function (blocks) {
-	    for (var block in blocks) {
-	      return blocks[block].moveDown();
-	    }
+	    _.every(blocks, function (block) {
+	      return block.moveDown();
+	    });
+	  });
+	};
+
+	Shape.prototype.updateStatusInactive = function () {
+	  _.every(this.blocks, function (block) {
+	    block.active = false;
 	  });
 	};
 
@@ -13865,7 +13892,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(jShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function jShape(board) {
@@ -13920,7 +13947,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(lShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function lShape(board) {
@@ -13972,7 +13999,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(oShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function oShape(board) {
@@ -14025,7 +14052,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(sShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function sShape(board) {
@@ -14077,7 +14104,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(tShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function tShape(board) {
@@ -14129,7 +14156,7 @@
 	var util = __webpack_require__(3);
 	var EventEmitter = __webpack_require__(7);
 	util.inherits(zShape, EventEmitter);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Shape = __webpack_require__(12);
 
 	function zShape(board) {
@@ -14475,7 +14502,7 @@
 
 	var assert = __webpack_require__(29).assert;
 	var Board = __webpack_require__(2);
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 
 	describe('Game Board', function () {
 
@@ -22697,7 +22724,7 @@
 	'use strict';
 
 	var assert = __webpack_require__(29).assert;
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Board = __webpack_require__(2);
 
 	describe('Game Block', function () {
@@ -22814,9 +22841,9 @@
 	'use strict';
 
 	var assert = __webpack_require__(29).assert;
-	var Block = __webpack_require__(8);
+	var Block = __webpack_require__(11);
 	var Board = __webpack_require__(2);
-	var iShape = __webpack_require__(11);
+	var iShape = __webpack_require__(10);
 	var jShape = __webpack_require__(13);
 	var lShape = __webpack_require__(14);
 	var oShape = __webpack_require__(15);
