@@ -53,7 +53,7 @@ We chose to build Tetris to better understand object oriented JavaScript and pus
 
 Tetris is entirely built of single blocks. Each shape is comprised of four blocks that shift coordinates on the board grid. To stack shapes and clear rows on the grid, each block must detect the collection it's within relative to other pieces. 
 
-Functions to move the block down, left, and right must first check whether the space is available. A lot of the logic is repetitive given you are just addiing or subtracting one from each block's X or Y value. 
+Functions to move the block down, left, and right must first check whether the space is available. A lot of the logic is repetitive given you are just adding or subtracting 1 from each block's X or Y value. 
 
 For example:
 
@@ -61,17 +61,17 @@ For example:
 Block.prototype.moveDown = function() {
   if (this.canMoveDown) { this.y++ };
   return this;
-};
+}
   
 Block.prototype.moveRight = function() {
   if (this.canMoveRight) { this.x++ };
   return this;
-};
+}
   
 Block.prototype.moveLeft = function() {
   if (this.canMoveLeft) { this.x-- };
   return this;
-};
+}
 ```
 
 Using partial functions, we were able to refactor the code from 18 movement related functions down to 6. This allowed us to future-proof the model from bugs when the grid size changed.
