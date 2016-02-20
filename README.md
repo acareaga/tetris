@@ -4,7 +4,7 @@
 
 ## Description
 
-Tetris was built by [Jhun de Andres](https://twitter.com/joshuajhun) & [Aaron Careaga](https://twitter.com/aaroncareaga) for the Game Time project in Module 4 at the Turing School. The game was implemented entirely in Javascript and jQuery using Lodash and HTML5 canvas.
+Tetris implemented entirely in Javascript and jQuery using Lodash and HTML5 canvas. The game was built by [Jhun de Andres](https://twitter.com/joshuajhun) & [Aaron Careaga](https://twitter.com/aaroncareaga) as a pair project in Module 4 at the Turing School.
 
 ![Tetris Turing School Jhun de Andres Aaron Careaga](http://www.aaroncareaga.com/wp-content/uploads/2016/02/Screen-Shot-2016-02-19-at-8.42.24-PM.png)
 
