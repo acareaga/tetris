@@ -6,10 +6,7 @@
 
 Tetris was built by Jhun de Andres & Aaron Careaga for the GameTime project in Module 4 at the Turing School. The game was implemented entirely in Javascript and jQuery using Lodash and HTML5 canvas.
 
-![http://www.aaroncareaga.com/wp-content/uploads/2016/02/Screen-Shot-2016-02-19-at-8.42.24-PM.png](Tetris)
-
-- ADD LIVE GIF
-
+![Tetris Turing School Jhun de Andres Aaron Careaga](http://www.aaroncareaga.com/wp-content/uploads/2016/02/Screen-Shot-2016-02-19-at-8.42.24-PM.png)
 
 ## Installation
 
@@ -56,13 +53,11 @@ npm test
 ## Insight
 
 
-We chose Tetris to understand object oriented JavaScript at a deeper level and stretch our Mocha testing abilities. The logic behind the game was really difficult with 3 models, 7 pieces, and 4 rotations.
-
-We've learned so much about this language and I feel that this risk will pay off in the future. We are proud of our understanding of higher order functions (partials), object oriented design in JS, and the ability to navigate the heirarchy of nested objects.
+We chose to build Tetris to better understand object oriented JavaScript and push our Mocha testing abilities. With 3 models, 7 pieces, and 4 rotations, the logic behind the game was really difficult. A few sections of the codebase we are most proud of include the use of higher order functions, significant unit level test coverage, object oriented design, and navigating deeply nested objects.
 
 ### Partial Functions & Refactoring the Block Model
 
-Tetris is entirely built off of single blocks. Each shape is comprised of four blocks that shift coordinates on the board grid. To stack shapes and clear rows on the grid, each block must detect the collection it's within relative to other pieces. 
+Tetris is entirely built of single blocks. Each shape is comprised of four blocks that shift coordinates on the board grid. To stack shapes and clear rows on the grid, each block must detect the collection it's within relative to other pieces. 
 
 Functions to move the block down, left, and right must first check whether the space is available. A lot of the logic is repetitive given you are just addiing or subtracting one from each block's X or Y value. 
 
