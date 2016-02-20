@@ -10,18 +10,11 @@ Tetris was built by [Jhun de Andres](https://twitter.com/joshuajhun) & [Aaron Ca
 
 ## Installation
 
-Clone repository and cd into the directory:
+Clone repository and install dependencies:
 
 ```
 $ git clone git@github.com:acareaga/tetris.git
 $ cd tetris
-$ rake install
-```
-
-Install dependencies:
-
-```
-npm install
 ```
 
 ## Usage
