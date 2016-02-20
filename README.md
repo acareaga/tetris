@@ -47,7 +47,7 @@ npm test
 ## Insight
 
 
-We chose to build Tetris to better understand object oriented JavaScript and push our Mocha testing abilities. With 3 models, 7 pieces, and 4 rotations, the logic behind the game was really difficult. A few sections of the codebase we are most proud of include the use of higher order functions, significant unit level test coverage, object oriented design, and navigating deeply nested objects.
+We chose to build Tetris to better understand object oriented JavaScript and push our Mocha testing abilities. With 3 models, 7 pieces, and 4 rotations, the logic behind the game was really difficult. A few sections of the codebase we are most proud of include the use of higher order functions, unit level test coverage, and navigating deeply nested objects.
 
 ### Partial Functions & Refactoring the Block Model
 
