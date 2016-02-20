@@ -74,7 +74,7 @@ Block.prototype.moveLeft = function() {
 };
 ```
 
-Using partial functions, we were able to refactor the code from 18 movement related functions down to 6. This allowed us to future-proof the model from bugs when the grid size is changed.
+Using partial functions, we were able to refactor the code from 18 movement related functions down to 6. This allowed us to future-proof the model from bugs when the grid size changed.
 
 
 ```
