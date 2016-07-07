@@ -53,7 +53,7 @@ describe('Game Block', function() {
   });
 
   it('can tell if the block is at the left side of the board', function(){
-    let block = new Block(this.board,0,20)
+    let block = new Block(this.board,1,20)
     assert.equal(block.blockIsAtLeftSideOfBoard(), true);
   });
 

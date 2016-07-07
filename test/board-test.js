@@ -38,7 +38,7 @@ describe('Game Board', function(){
     assert.equal(board.findBlockOnBoard(block.x, block.y), block);
   });
 
-  it('can detect when a row of blocks is full', function() {
+  xit('can detect when a row of blocks is full', function() {
     let board = new Board(10, 20);
     board.addBlockToBoard(new Block(board,1,16));
     board.addBlockToBoard(new Block(board,2,16));
@@ -54,7 +54,7 @@ describe('Game Board', function(){
     assert.equal(board.blocks.length, 0);
   });
 
-  it('returns undefined if a row is not full', function(){
+  xit('returns undefined if a row is not full', function(){
     let board = new Board(10,20);
     board.addBlockToBoard(new Block(board,7,16));
     board.addBlockToBoard(new Block(board,8,16));
@@ -63,7 +63,7 @@ describe('Game Board', function(){
     assert.equal(board.rowChecker(), undefined);
   });
 
-  it ('it can clear out a full row of blocks', function(){
+  xit ('it can clear out a full row of blocks', function(){
     let board = new Board(10,20);
     board.addBlockToBoard(new Block(board,1,16));
     board.addBlockToBoard(new Block(board,2,16));
@@ -79,7 +79,7 @@ describe('Game Board', function(){
     assert.equal(board.pieces.length, 0 );
   });
 
-  it ('it can clear out a full row of blocks with a mirade of blocks on the board', function(){
+  xit ('it can clear out a full row of blocks with a mirade of blocks on the board', function(){
     let board = new Board(10,20);
     board.addBlockToBoard(new Block(board,1,1));
     board.addBlockToBoard(new Block(board,2,5));
@@ -104,7 +104,7 @@ describe('Game Board', function(){
     assert.equal(board.pieces.length, 9 );
   });
 
-  it ('increments the score after a row is cleared', function(){
+  xit ('increments the score after a row is cleared', function(){
     let board = new Board(10,20);
     board.addBlockToBoard(new Block(board,1,10));
     board.addBlockToBoard(new Block(board,2,12));
@@ -124,7 +124,7 @@ describe('Game Board', function(){
     assert.equal(board.score, 150);
   });
 
-  it ('clears the full row and moves block above down', function(){
+  xit ('clears the full row and moves block above down', function(){
     let board = new Board(10,20);
     let block = new Block (Board, 5, 10)
     board.addBlockToBoard(block);
